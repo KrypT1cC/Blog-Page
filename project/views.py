@@ -1,5 +1,7 @@
-from project.setup import app
+from project import app
+from flask import render_template
+
 
 @app.route('/')
 def home():
-    return 'This is the home page.'
+    return render_template('home.html')

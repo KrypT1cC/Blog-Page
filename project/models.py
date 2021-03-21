@@ -1,3 +1,3 @@
-from project.setup import db
+from project import db
 
 
