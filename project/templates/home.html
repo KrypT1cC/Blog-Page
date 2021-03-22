@@ -5,12 +5,20 @@
 {% endblock %}
 {% block content %}
     <h1>Blog Page</h1>
-    <div class="login">
-        <p>Username</p>
-        <input type="text" name="username" id="username">
-        <p>Password</p>
-        <input type="password" name="password" id="password">
-        <input type="submit" id="submit" value="Login">
-    </div>
+    <form method="post">
+        <div class="login">
+            <p class="title">Login</p>
+            <p>Username</p>
+            <input type="text" name="username" id="username">
+            <p>Password</p>
+            <input type="password" name="password" id="password">
+            <input type="submit" id="submit" value="Login">
+            <div class="register">
+                <a href="{{ url_for('register') }}"><input type="button" value="Register"> </a>
+            </div>
+            <a href="{{ url_for('forgot_password') }}" class="forgot">Forgot Password</a>
+        </div>
+    </form>
+
 {% endblock %}
 {% block footer %}{% endblock %}

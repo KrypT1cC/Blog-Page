@@ -1,25 +1,36 @@
 .content {
     overflow: hidden;
     width: 100%;
-    height: 880px;
+    height: 830px;
     margin: 0px;
     background-color: rgb(240, 240, 240);
+    border-top: 50px solid rgb(118, 178, 184);
 }
 
 .login {
-    width: 375px;
-    height: 300px;
-    margin: auto;
+    width: 335px;
+    height: 350px;
+    padding: 50px;
     background-color: white;
     font-family: Verdana, sans-serif;
+    border-radius: 15px;
+    position: relative;
+    left: 1000px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .login p {
     margin-bottom: 5px;
 }
 
+.title {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 5px;
+}
+
 .login #username, #password{
-    width: 300px;
+    width: 90%;
     height: 25px;
     padding: 5px 15px;
     border: 3px solid #ccc;
@@ -28,10 +39,37 @@
     font-size: 18px;
 }
 
-.login #submit{
-    width: 100px;
+.login #submit, .register input{
+    width: 200px;
     height: 35px;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 18px;
+    position: relative;
+    left: 67.5px;
+    border-radius: 5px;
+    background-color: rgb(152, 227, 235);
+}
+
+.register input {
+    width: 100px;
+    margin-top: 15px;
+    background-color: #4CAF50;
+    color: white;
+    left: 117.5px;
+}
+
+.register input:hover {
+    background-color: #46a049;
+}
+
+.forgot {
+    position: relative;
+    top: 30px;
+    left: 100px;
+}
+
+.login #submit:hover {
+    background-color: rgb(118, 178, 184);
 }
 
 .login #username:hover, #password:hover {
@@ -43,5 +81,8 @@ h1 {
     position: relative;
     font-family: Geneva,Tahoma,Verdana,sans-serif;
     color: rgb(118, 178, 184);
-    left: 100px;
+    font-size: 42px;
+    left: 350px;
+    top: 75px;
 }
+
