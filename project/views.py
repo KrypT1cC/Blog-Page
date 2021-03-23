@@ -1,12 +1,17 @@
 from project import app
-from flask import render_template, request
+from project.forms import LoginForm
+from flask import render_template, request, redirect, url_for
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    form = LoginForm()
+
     if request.method == 'POST':
-        username = request
-    return render_template('home.html')
+        print(form.password.data)
+        if form.username.data == "username" and form.password.data == "password":
+            return redirect(url_for('forgot_password'))
+    return render_template('home.html', form=form)
 
 
 @app.route('/register')

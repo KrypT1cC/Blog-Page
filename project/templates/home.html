@@ -8,11 +8,11 @@
     <form method="post">
         <div class="login">
             <p class="title">Login</p>
-            <p>Username</p>
-            <input type="text" name="username" id="username">
-            <p>Password</p>
-            <input type="password" name="password" id="password">
-            <input type="submit" id="submit" value="Login">
+            {{ form.username.label }}
+            {{ form.username() }}
+            {{ form.password.label }}
+            {{ form.password() }}
+            {{ form.submit() }}
             <div class="register">
                 <a href="{{ url_for('register') }}"><input type="button" value="Register"> </a>
             </div>
