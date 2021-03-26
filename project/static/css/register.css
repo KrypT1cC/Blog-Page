@@ -1,0 +1,65 @@
+.content {
+    overflow: hidden;
+    background-color: rgb(240, 240, 240);
+    height: 830px;
+    border-top: 50px solid rgb(118, 178, 184);
+}
+
+.register {
+    width: 335px;
+    height: 375px;
+    padding: 50px;
+    background-color: white;
+    font-family: Verdana, sans-serif;
+    border-radius: 15px;
+    position: relative;
+    top: 100px;
+    margin: auto;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+#email, #username, #password, #confirm_password {
+    width: 90%;
+    height: 25px;
+    border-radius: 5px;
+    border: 3px solid #ccc;
+    padding: 5px 15px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+#email:hover, #username:hover, #password:hover, #confirm_password:hover {
+    border: 3px solid #555;
+}
+
+#submit{
+    width: 200px;
+    height: 35px;
+    margin-top: 15px;
+    font-size: 18px;
+    position: relative;
+    left: 67.5px;
+    border-radius: 5px;
+    background-color: rgb(152, 227, 235);
+    color: black;
+}
+
+#submit:hover {
+    background-color: rgb(118, 178, 184);
+}
+
+.errors {
+    color: red;
+    font-size: 16px;
+    position: relative;
+    top: 125px;
+    left: 750px;
+}
