@@ -25,14 +25,11 @@ def register():
         username = register_form.username.data
         password = bcrypt.generate_password_hash(register_form.password.data, 15)
 
-        userE = Accounts.query.filter_by(email=email).first()
-        userU = Accounts.query.filter_by(username=username).first()
+        new_user = Accounts(email=email, username=username, password=password)
 
-        if userE is None and userU is None:
-            new_user = Accounts(email=email, username=username, password=password)
-            db.session.add(new_user)
-            db.session.commit()
-            return redirect(url_for('forgot_password'))
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('forgot_password'))
     return render_template('register.html', form=register_form)
 
 
