@@ -57,9 +57,17 @@
 }
 
 .errors {
-    color: red;
+    width: 435px;
+    background-color: rgb(199, 40, 40);
+    padding: 5px 0px 5px 40px;
+    color: white;
     font-size: 16px;
+    margin: auto;
+    border-radius: 5px;
     position: relative;
     top: 125px;
-    left: 750px;
+}
+
+.errors li {
+
 }

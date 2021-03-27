@@ -1,5 +1,6 @@
 from project import app
 from project.forms import LoginForm, RegisterForm
+from project.models import Accounts
 from flask import render_template, request, redirect, url_for
 
 
@@ -18,9 +19,9 @@ def home():
 def register():
 
     register_form = RegisterForm()
-    if request.method == 'POST' and register_form.validate_on_submit():
-        print('requirements fulfilled')
 
+    if register_form.validate_on_submit():
+        pass
     return render_template('register.html', form=register_form)
 
 

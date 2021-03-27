@@ -7,6 +7,7 @@
     <form method="post">
         <div class="register">
             <p class="title">Register</p>
+            {{ form.csrf_token }}
             {{ form.email.label }}
             {{ form.email() }}
             {{ form.username.label }}
