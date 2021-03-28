@@ -14,9 +14,8 @@ def load_user(user_id):
 @login_required
 def home():
     if request.method == 'POST':
-        if request.form['logout'] == 'Logout':
-            logout_user()
-            return redirect(url_for('login'))
+        logout_user()
+        return redirect(url_for('login'))
     return render_template('home.html', user=current_user.username)
 
 
@@ -25,16 +24,14 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
 
-    error = None
     form = LoginForm()
     if form.validate_on_submit():
         user = Accounts.query.filter_by(username=form.username.data).first()
-        if user is not None and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user)
-            return redirect(url_for('home'))
-        else:
-            error = "* Invalid login credentials."
-    return render_template('login.html', form=form, error=error)
+        if user is not None:
+            if bcrypt.check_password_hash(user.password, form.password.data):
+                login_user(user)
+                return redirect(url_for('home'))
+    return render_template('login.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])

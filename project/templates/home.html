@@ -1,18 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
-{% block head %}
-    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-{% endblock %}
 {% block content %}
-    <div class="welcome">
-        <h1>Hello {{ user }}! </h1>
-
-    </div>
-    <div class="nav-bar">
-        <a href="{{ url_for('home') }}"><button href="{{ url_for('home') }}">Home</button></a>
-        <input type="text" id="search">
-        <form method="post">
-            <input type="submit" name="logout" id="logout" value="Logout">
-        </form>
-    </div>
+    <p>Welcome {{ user }}! </p>
+    <form method="post">
+        <input type="submit" value="Logout">
+    </form>
 {% endblock %}
