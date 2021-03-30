@@ -83,3 +83,9 @@ h1 {
     top: 75px;
 }
 
+.error {
+    color: red;
+    position: relative;
+    top: 50px;
+}
+
