@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-    <p>Welcome {{ user }}! </p>
-    <form method="post">
-        <input type="submit" value="Logout">
-    </form>
+    <div class="welcome">
+        <h1>Hello {{ user }}! </h1>
+    </div>
+    {% block navbar %}
+        <div class="nav-bar">
+            <a href="{{ url_for('home') }}"><button>Home</button></a>
+            <a href="{{ url_for('dm') }}"><button id="DM">DMs</button></a>
+            <input type="text" id="search">
+            <form method="post">
+                <input type="submit" name="logout" id="logout" value="Logout">
+            </form>
+        </div>
+    {% endblock %}
 {% endblock %}

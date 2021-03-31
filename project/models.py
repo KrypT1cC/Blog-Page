@@ -7,6 +7,8 @@ class Accounts(db.Model, UserMixin):
     email = db.Column(db.String(50), unique=True, nullable=False)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
+    # add following
+    # add friends
 
     @staticmethod
     def get(ID):

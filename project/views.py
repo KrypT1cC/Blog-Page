@@ -55,3 +55,15 @@ def register():
 @app.route('/forgot')
 def forgot_password():
     return "forgot"
+
+
+@app.route('/dm', methods=['GET', 'POST'])
+@login_required
+def dm():
+    if request.method == 'POST':
+        if request.form['logout'] == 'Logout':
+            logout_user()
+            return redirect(url_for('login'))
+        logout_user()
+        return redirect(url_for('login'))
+    return render_template('dms.html')

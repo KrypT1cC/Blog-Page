@@ -1,0 +1,17 @@
+{% extends "home.html" %}
+{% block title %}Direct Messages{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dms.css') }}">
+{% endblock%}
+{% block content %}
+    {% block navbar %}{{ super() }}{% endblock %}
+    <div class="DM">
+        <div class="accounts">
+            <p>Accounts</p>
+        <!-- loop through friends list-->
+        </div>
+        <div class="messages">
+            <p>Messages</p>
+        </div>
+    </div>
+{% endblock %}

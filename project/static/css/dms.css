@@ -1,0 +1,96 @@
+.content {
+    background-color: rgb(240, 240, 240);
+    height: 970px;
+}
+
+.nav-bar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 60px;
+    background-color: rgb(118, 178, 184);
+}
+
+#search {
+    height: 15px;
+    width: 200px;
+    padding: 5px 15px 5px 25px;
+    font-size: 16px;
+    position: relative;
+    top: 15.5px;
+    left: 838px;
+    background-position: 2px 2px;
+    background-repeat: no-repeat;
+    background-image: url('/static/img/search_icon.png');
+}
+
+.nav-bar button {
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    font-size: 16px;
+    background-color: rgb(118, 178, 184);
+    border: none;
+    outline: none;
+    color: white;
+}
+
+.nav-bar button:hover, #logout:hover{
+    cursor: pointer;
+}
+
+form {
+    position: relative;
+    top: -30px;
+    left: 100px;
+    width: 100px;
+}
+
+#logout {
+    width: 100px;
+    height: 60px;
+    font-size: 16px;
+    background-color: rgb(118, 178, 184);
+    border: none;
+    outline: none;
+    color: white;
+    padding-top: 2px;
+    position: fixed;
+}
+
+#DM {
+    position: relative;
+    left: 1803px;
+    position: fixed;
+}
+
+.DM {
+    width: 1000px;
+    height: 890px;
+    margin: auto;
+    position: relative;
+    top: 70px;
+    border: 1px solid black;
+}
+
+.accounts {
+    height: 100%;
+    width: 399px;
+    float: left;
+    background-color: white;
+    border-right: 1px solid black;
+}
+
+.messages {
+    overflow: hidden;
+    height: 100%;
+    width: 60%;
+    background-color: white;
+    float: right;
+}
+
+.DM p {
+    font-size: 20px;
+    padding-left: 10px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
