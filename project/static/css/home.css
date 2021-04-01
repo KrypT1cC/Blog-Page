@@ -65,6 +65,16 @@ form {
 
 #DM {
     position: relative;
-    left: 1803px;
+    left: 1703px;
     position: fixed;
+}
+
+img {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    left: 1833px;
+    top: 10px;
+    position: fixed;
+    border-radius: 50%;
 }

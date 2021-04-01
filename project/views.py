@@ -3,6 +3,7 @@ from project.forms import LoginForm, RegisterForm
 from project.models import Accounts
 from flask_login import login_required, login_user, current_user, logout_user
 from flask import render_template, request, redirect, url_for, flash
+import json
 
 
 @login_manager.user_loader
@@ -43,8 +44,9 @@ def register():
         email = register_form.email.data.lower()
         username = register_form.username.data
         password = bcrypt.generate_password_hash(register_form.password.data, 15)
+        friends = []
 
-        new_user = Accounts(email=email, username=username, password=password)
+        new_user = Accounts(email=email, username=username, password=password, friends=json.dumps(friends))
 
         db.session.add(new_user)
         db.session.commit()
@@ -66,4 +68,4 @@ def dm():
             return redirect(url_for('login'))
         logout_user()
         return redirect(url_for('login'))
-    return render_template('dms.html')
+    return render_template('dms.html', friends=json.loads(current_user.friends))

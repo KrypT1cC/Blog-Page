@@ -60,7 +60,7 @@ form {
 
 #DM {
     position: relative;
-    left: 1803px;
+    left: 1703px;
     position: fixed;
 }
 
@@ -70,7 +70,7 @@ form {
     margin: auto;
     position: relative;
     top: 70px;
-    border: 1px solid black;
+    border: 1px solid gray;
 }
 
 .accounts {
@@ -78,7 +78,14 @@ form {
     width: 399px;
     float: left;
     background-color: white;
-    border-right: 1px solid black;
+    border-right: 1px solid gray;
+    overflow-y: auto;
+}
+
+.accounts button {
+    width: 100%;
+    height: 55px;
+    padding: 5px 20px 5px 20px;
 }
 
 .messages {
@@ -93,4 +100,14 @@ form {
     font-size: 20px;
     padding-left: 10px;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+img {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    left: 1833px;
+    top: 10px;
+    position: fixed;
+    border-radius: 50%;
 }

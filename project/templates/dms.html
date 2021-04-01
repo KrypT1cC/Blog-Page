@@ -9,6 +9,9 @@
         <div class="accounts">
             <p>Accounts</p>
         <!-- loop through friends list-->
+            {% for friend in friends %}
+                <a href=""><button>{{ friend }}</button></a>
+            {% endfor %}
         </div>
         <div class="messages">
             <p>Messages</p>
