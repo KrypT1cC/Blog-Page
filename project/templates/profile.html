@@ -1,13 +1,13 @@
 {% extends "home.html" %}
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}"
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}">
 {% endblock %}
 {% block content %}
     {% block navbar %}{{ super() }}{% endblock %}
     <div class="profile">
-        <img src="{{ user.profile_picture }}">
+        <img src="{{ viewed_user.profile_picture }}">
         <div class="profile-info">
-            <h1>{{ user.username }}</h1>
+            <h1>{{ viewed_user.username }}</h1>
             <div class="followers">
                 <p>0</p>
                 <p>Followers</p>
@@ -16,6 +16,12 @@
                 <p>{{ friends|length }}</p>
                 <p>Friends</p>
             </div>
+
+        </div>
+        <div class="settings">
+            {% if viewed_user == user %}
+                <a href="{{ url_for('profile_settings') }}"><button>Profile Settings</button></a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

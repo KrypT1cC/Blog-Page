@@ -8,7 +8,7 @@
             <a href="{{ url_for('home') }}"><button>Home</button></a>
             <a href="{{ url_for('dm') }}"><button id="DM">DMs</button></a>
             <input type="text" id="search">
-            <a href="{{ url_for('profile') }}"> <img src="{{ user.profile_picture }}"> </a>
+            <a href="{{ url_for('profile', username=user.username) }}"> <img src="{{ user.profile_picture }}"> </a>
             <form method="post">
                 <input type="submit" name="logout" id="logout" value="Logout">
             </form>

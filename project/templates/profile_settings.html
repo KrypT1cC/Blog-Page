@@ -1,0 +1,28 @@
+{% extends "home.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile_setting.css') }}">
+{% endblock %}
+{% block content %}
+    {% block navbar %} {{ super() }} {% endblock %}
+    <div class="settings">
+        <div class="change-username">
+            {{ change_user_form.csrf_token }}
+            {{ change_user_form.username.label }}
+            {{ change_user_form.username() }}
+            {{ change_user_form.confirm_username.label }}
+            {{ change_user_form.confirm_username() }}
+            {{ change_user_form.password.label }}
+            {{ change_user_form.password() }}
+            {{ change_user_form.submit() }}
+        </div>
+        <div class="change-password">
+
+        </div>
+        <div class="change-email">
+
+        </div>
+        <div class="change-profile-picture">
+
+        </div>
+    </div>
+{% endblock %}

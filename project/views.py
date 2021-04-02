@@ -1,5 +1,5 @@
 from project import app, db, bcrypt, login_manager
-from project.forms import LoginForm, RegisterForm
+from project.forms import LoginForm, RegisterForm, ChangeUsernameForm
 from project.models import Accounts
 from flask_login import login_required, login_user, current_user, logout_user
 from flask import render_template, request, redirect, url_for, flash
@@ -77,11 +77,19 @@ def dm():
     return render_template('dms.html', user=current_user, friends=json.loads(current_user.friends))
 
 
-@app.route('/profile', methods=['GET', 'POST'])
+@app.route('/profile/<username>', methods=['GET', 'POST'])
 @login_required
-def profile():
+def profile(username):
     if request.method == 'POST':
         if request.form['logout'] == 'Logout':
             logout_user()
             return redirect(url_for('login'))
-    return render_template('profile.html', user=current_user, friends=json.loads(current_user.friends))
+    user = Accounts.query.filter_by(username=username).first()
+    return render_template('profile.html', user=current_user, friends=json.loads(user.friends), viewed_user=user)
+
+
+@app.route('/settings')
+@login_required
+def profile_settings():
+    change_user_form = ChangeUsernameForm()
+    return render_template('profile_settings.html', user=current_user, change_user_form=change_user_form)

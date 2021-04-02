@@ -5,8 +5,8 @@ from project.models import Accounts
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(max=50)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(max=100)])
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
 
@@ -22,14 +22,14 @@ class RegisterForm(FlaskForm):
         'Username',
         validators=[
             DataRequired(),
-            Length(min=6, max=50, message="Username too short")
+            Length(min=6, max=50, message="Username does not meet length requirements")
         ]
     )
     password = PasswordField(
         'Password',
         validators=[
             DataRequired(),
-            Length(min=8, max=100, message="Password is too short")
+            Length(min=8, max=100, message="Password does not meet length requirements")
         ]
     )
     confirm_password = PasswordField(
@@ -46,6 +46,35 @@ class RegisterForm(FlaskForm):
         user = Accounts.query.filter_by(email=field.data.lower()).first()
         if user is not None:
             raise ValidationError("Email already exists")
+
+    def validate_username(self, field):
+        user = Accounts.query.filter_by(username=field.data).first()
+        if user is not None:
+            raise ValidationError("Username already exists")
+
+
+class ChangeUsernameForm(FlaskForm):
+    username = StringField(
+        'Username',
+        validators=[
+            DataRequired(),
+            Length(min=6, max=50, message="Username does not meet length requirements")
+        ]
+    )
+    confirm_username = StringField(
+        'Confirm Username',
+        validators=[
+            DataRequired(),
+            EqualTo("username", message="Usernames don't match")
+        ]
+    )
+    password = PasswordField(
+        "Password",
+        validators=[
+            DataRequired()
+        ]
+    )
+    submit = SubmitField('Change Username')
 
     def validate_username(self, field):
         user = Accounts.query.filter_by(username=field.data).first()
