@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="welcome">
-        <h1>Hello {{ user }}! </h1>
+        <h1>Hello {{ user.username }}! </h1>
     </div>
     {% block navbar %}
         <div class="nav-bar">
             <a href="{{ url_for('home') }}"><button>Home</button></a>
             <a href="{{ url_for('dm') }}"><button id="DM">DMs</button></a>
             <input type="text" id="search">
-            <a><img src="{{ url_for('static', filename='img/no-profile.jpg') }}"></a>
+            <a href="{{ url_for('profile') }}"> <img src="{{ user.profile_picture }}"> </a>
             <form method="post">
                 <input type="submit" name="logout" id="logout" value="Logout">
             </form>
-
         </div>
     {% endblock %}
 {% endblock %}

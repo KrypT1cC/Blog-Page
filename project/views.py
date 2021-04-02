@@ -15,9 +15,10 @@ def load_user(user_id):
 @login_required
 def home():
     if request.method == 'POST':
-        logout_user()
-        return redirect(url_for('login'))
-    return render_template('home.html', user=current_user.username)
+        if request.form['logout'] == 'Logout':
+            logout_user()
+            return redirect(url_for('login'))
+    return render_template('home.html', user=current_user)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -45,8 +46,15 @@ def register():
         username = register_form.username.data
         password = bcrypt.generate_password_hash(register_form.password.data, 15)
         friends = []
+        profile_picture = '/static/img/no-profile.jpg'
 
-        new_user = Accounts(email=email, username=username, password=password, friends=json.dumps(friends))
+        new_user = Accounts(
+            email=email,
+            username=username,
+            password=password,
+            friends=json.dumps(friends),
+            profile_picture=profile_picture
+        )
 
         db.session.add(new_user)
         db.session.commit()
@@ -66,6 +74,14 @@ def dm():
         if request.form['logout'] == 'Logout':
             logout_user()
             return redirect(url_for('login'))
-        logout_user()
-        return redirect(url_for('login'))
-    return render_template('dms.html', friends=json.loads(current_user.friends))
+    return render_template('dms.html', user=current_user, friends=json.loads(current_user.friends))
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    if request.method == 'POST':
+        if request.form['logout'] == 'Logout':
+            logout_user()
+            return redirect(url_for('login'))
+    return render_template('profile.html', user=current_user, friends=json.loads(current_user.friends))
