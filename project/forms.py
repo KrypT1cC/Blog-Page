@@ -82,4 +82,28 @@ class ChangeUsernameForm(FlaskForm):
             raise ValidationError("Username already exists")
 
 
+class ChangePasswordForm(FlaskForm):
+    current_password = PasswordField(
+        "Current Password",
+        validators=[
+            DataRequired()
+        ]
+    )
+    new_password = StringField(
+        "New Password",
+        validators=[
+            DataRequired(),
+            Length(min=8, max=100, message="Password does not meet length requirements")
+        ]
+    )
+    confirm_password = StringField(
+        "Confirm New Password",
+        validators=[
+            DataRequired(),
+            EqualTo('new_password')
+        ]
+    )
+    submit = SubmitField("Change Password")
+
+
 
