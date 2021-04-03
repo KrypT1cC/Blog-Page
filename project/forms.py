@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, ValidationError, FileField
+from flask_wtf.file import FileRequired, FileAllowed
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from project.models import Accounts
 
@@ -128,3 +129,14 @@ class ChangeEmailForm(FlaskForm):
         ]
     )
     submit = SubmitField('Change Email')
+
+
+class ChangeProfilePictureForm(FlaskForm):
+    profile_pic = FileField(
+        "Choose New Profile Picture",
+        validators=[
+            FileRequired(),
+            FileAllowed(['jpg', 'png'], message='Only .jpg and .png files are allowed')
+        ]
+    )
+    submit = SubmitField("Change Profile Picture")

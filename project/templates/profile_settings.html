@@ -39,7 +39,10 @@
         </div>
         <br>
         <div class="change-profile-picture">
-
+            {{ change_pic_form.csrf_token }}
+            {{ change_pic_form.profile_pic.label }}
+            {{ change_pic_form.profile_pic() }}
+            {{ change_pic_form.submit() }}
         </div>
     </div>
 {% endblock %}
