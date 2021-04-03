@@ -106,4 +106,25 @@ class ChangePasswordForm(FlaskForm):
     submit = SubmitField("Change Password")
 
 
-
+class ChangeEmailForm(FlaskForm):
+    new_email = StringField(
+        "New Email",
+        validators=[
+            DataRequired(),
+            Email(message="Not a valid email"),
+        ]
+    )
+    confirm_email = StringField(
+        "Confirm Email",
+        validators=[
+            DataRequired(),
+            EqualTo('new_email')
+        ]
+    )
+    password = PasswordField(
+        "Password",
+        validators=[
+            DataRequired()
+        ]
+    )
+    submit = SubmitField('Change Email')

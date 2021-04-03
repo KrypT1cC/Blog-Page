@@ -28,7 +28,14 @@
         </div>
         <br>
         <div class="change-email">
-
+            {{ change_email_form.csrf_token }}
+            {{ change_email_form.new_email.label }}
+            {{ change_email_form.new_email() }}
+            {{ change_email_form.confirm_email.label }}
+            {{ change_email_form.confirm_email() }}
+            {{ change_email_form.password.label }}
+            {{ change_email_form.password() }}
+            {{ change_email_form.submit() }}
         </div>
         <br>
         <div class="change-profile-picture">

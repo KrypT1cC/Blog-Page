@@ -1,5 +1,5 @@
 from project import app, db, bcrypt, login_manager
-from project.forms import LoginForm, RegisterForm, ChangeUsernameForm, ChangePasswordForm
+from project.forms import LoginForm, RegisterForm, ChangeUsernameForm, ChangePasswordForm, ChangeEmailForm
 from project.models import Accounts
 from flask_login import login_required, login_user, current_user, logout_user
 from flask import render_template, request, redirect, url_for, flash
@@ -93,9 +93,11 @@ def profile(username):
 def profile_settings():
     change_user_form = ChangeUsernameForm()
     change_password_form = ChangePasswordForm()
+    change_email_form = ChangeEmailForm()
     return render_template(
         'profile_settings.html',
         user=current_user,
         change_user_form=change_user_form,
-        change_password_form=change_password_form
+        change_password_form=change_password_form,
+        change_email_form=change_email_form
     )
