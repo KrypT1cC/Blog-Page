@@ -1,48 +1,61 @@
 {% extends "home.html" %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile_setting.css') }}">
+    <script src="{{ url_for('static', filename='js/settings_functions.js') }}"></script>
 {% endblock %}
 {% block content %}
+
     {% block navbar %} {{ super() }} {% endblock %}
     <div class="settings">
-        <div class="change-username">
-            {{ change_user_form.csrf_token }}
-            {{ change_user_form.username.label }}
-            {{ change_user_form.username() }}
-            {{ change_user_form.confirm_username.label }}
-            {{ change_user_form.confirm_username() }}
-            {{ change_user_form.password.label }}
-            {{ change_user_form.password() }}
-            {{ change_user_form.submit() }}
+        <div class="dropdown-button">
+            <button>Select</button>
+            <div class="dropdown-content">
+                <button onclick="swapHide('change-username')">Change Usernaeme</button>
+                <button onclick="swapHide('change-password')">Change Password</button>
+                <button onclick="swapHide('change-email')">Change Email</button>
+                <button onclick="swapHide('change-profile-pic')">Change Profile Picture</button>
+            </div>
         </div>
-        <br>
-        <div class="change-password">
-            {{ change_password_form.csrf_token }}
-            {{ change_password_form.current_password.label }}
-            {{ change_password_form.current_password() }}
-            {{ change_password_form.new_password.label }}
-            {{ change_password_form.new_password() }}
-            {{ change_password_form.confirm_password.label }}
-            {{ change_password_form.confirm_password() }}
-            {{ change_password_form.submit() }}
-        </div>
-        <br>
-        <div class="change-email">
-            {{ change_email_form.csrf_token }}
-            {{ change_email_form.new_email.label }}
-            {{ change_email_form.new_email() }}
-            {{ change_email_form.confirm_email.label }}
-            {{ change_email_form.confirm_email() }}
-            {{ change_email_form.password.label }}
-            {{ change_email_form.password() }}
-            {{ change_email_form.submit() }}
-        </div>
-        <br>
-        <div class="change-profile-picture">
-            {{ change_pic_form.csrf_token }}
-            {{ change_pic_form.profile_pic.label }}
-            {{ change_pic_form.profile_pic() }}
-            {{ change_pic_form.submit() }}
+        <div class="change-forms">
+            <div class="change-username">
+                {{ change_user_form.csrf_token }}
+                {{ change_user_form.username.label }}
+                {{ change_user_form.username() }}
+                {{ change_user_form.confirm_username.label }}
+                {{ change_user_form.confirm_username() }}
+                {{ change_user_form.password.label }}
+                {{ change_user_form.password() }}
+                {{ change_user_form.submit() }}
+            </div>
+            <br>
+            <div class="change-password">
+                {{ change_password_form.csrf_token }}
+                {{ change_password_form.current_password.label }}
+                {{ change_password_form.current_password() }}
+                {{ change_password_form.new_password.label }}
+                {{ change_password_form.new_password() }}
+                {{ change_password_form.confirm_password.label }}
+                {{ change_password_form.confirm_password() }}
+                {{ change_password_form.submit() }}
+            </div>
+            <br>
+            <div class="change-email">
+                {{ change_email_form.csrf_token }}
+                {{ change_email_form.new_email.label }}
+                {{ change_email_form.new_email() }}
+                {{ change_email_form.confirm_email.label }}
+                {{ change_email_form.confirm_email() }}
+                {{ change_email_form.password.label }}
+                {{ change_email_form.password() }}
+                {{ change_email_form.submit() }}
+            </div>
+            <br>
+            <div class="change-profile-pic">
+                {{ change_pic_form.csrf_token }}
+                {{ change_pic_form.profile_pic.label }}
+                {{ change_pic_form.profile_pic() }}
+                {{ change_pic_form.submit() }}
+            </div>
         </div>
     </div>
 {% endblock %}

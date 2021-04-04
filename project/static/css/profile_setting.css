@@ -83,3 +83,18 @@ img {
     top: 75px;
     background-color: white;
 }
+
+.change-username, .change-password, .change-email, .change-profile-pic{
+    display: none;
+}
+
+.dropdown-content {
+    width: 150px;
+    display: none;
+    overflow: hidden;
+}
+
+.dropdown-button:hover .dropdown-content{
+    display: block;
+}
+
