@@ -79,6 +79,7 @@ img {
     width: 900px;
     height: 850px;
     margin: auto;
+    padding: 15px;
     position: relative;
     top: 75px;
     background-color: white;
@@ -88,10 +89,43 @@ img {
     display: none;
 }
 
-.dropdown-content {
-    width: 150px;
+.dropdown-button{
+    width: 250px;
+}
+
+.dropdown-button button {
+    width: 175px;
+    height: 50px;
+    font-size: 18px;
+    padding-right: 25px;
+    background-color: #0095ff;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+}
+
+.dropdown-content{
+    width: 225px;
     display: none;
     overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 1px gray;
+}
+
+.dropdown-content button {
+    width: 100%;
+    text-align: left;
+    background-color: white;
+    color: black;
+    border: 0;
+}
+
+.dropdown-content button:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.dropdown-button button:focus, .dropdown-content button:focus {
+    outline: none;
 }
 
 .dropdown-button:hover .dropdown-content{
