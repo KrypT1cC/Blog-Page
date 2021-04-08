@@ -104,6 +104,10 @@ img {
     border-radius: 5px;
 }
 
+.dropdown-button button:hover {
+    background-color: #0077CC;
+}
+
 .dropdown-content{
     width: 225px;
     display: none;
@@ -134,3 +138,33 @@ img {
     display: block;
 }
 
+.change-username, .change-password, .change-email, .change-profile-pic {
+    width: 400px;
+    height: 700px;
+    position: relative;
+    left: 250px;
+    top: 150px;
+    font-family: Verdana, sans-serif;
+}
+
+.change-forms input {
+    width: 400px;
+    height: 25px;
+    padding: 5px 15px;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    transition: 0.2s;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.change-forms #submit {
+    height: 50px;
+    width: 250px;
+    position: relative;
+    left: 75px;
+}
+
+input:hover {
+    border: 3px solid #555;
+}
