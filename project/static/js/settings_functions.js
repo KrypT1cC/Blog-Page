@@ -28,5 +28,3 @@ function hideClass(className){
         allItems[i].style.display = "none";
     }
 }
-
-

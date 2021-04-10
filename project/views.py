@@ -27,13 +27,16 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
 
+    error = None
     form = LoginForm()
     if form.validate_on_submit():
         user = Accounts.query.filter_by(username=form.username.data).first()
-        if user is not None:
-            if bcrypt.check_password_hash(user.password, form.password.data):
-                login_user(user)
-                return redirect(url_for('home'))
+        if user is not None and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user)
+            return redirect(url_for('home'))
+        else:
+            error = "* Invalid login credentials."
+    return render_template('login.html', form=form, error=error)
     return render_template('login.html', form=form)
 
 
@@ -84,23 +87,35 @@ def profile(username):
     if request.method == 'POST':
         if request.form['logout'] == 'Logout':
             logout_user()
-            return redirect(url_for('login'))
+            return redirect(url_for('settings'))
     user = Accounts.query.filter_by(username=username).first()
     return render_template('profile.html', user=current_user, friends=json.loads(user.friends), viewed_user=user)
 
 
-@app.route('/settings')
+@app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def profile_settings():
     change_user_form = ChangeUsernameForm()
     change_password_form = ChangePasswordForm()
     change_email_form = ChangeEmailForm()
     change_pic_form = ChangeProfilePictureForm()
+
+    error = None
+
+    if change_user_form.validate_on_submit():
+        if bcrypt.check_password_hash(current_user.password, change_user_form.password.data):
+            current_user.username = change_user_form.username.data
+            db.session.commit()
+            return redirect(url_for('home'))
+        else:
+            error = "Password is incorrect"
+
     return render_template(
         'profile_settings.html',
         user=current_user,
         change_user_form=change_user_form,
         change_password_form=change_password_form,
         change_email_form=change_email_form,
-        change_pic_form=change_pic_form
+        change_pic_form=change_pic_form,
+        error=error
     )

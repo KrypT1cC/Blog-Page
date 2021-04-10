@@ -140,9 +140,9 @@ img {
 
 .change-username, .change-password, .change-email, .change-profile-pic {
     width: 400px;
-    height: 700px;
+    height: 400px;
     position: relative;
-    left: 250px;
+    left: 232px;
     top: 150px;
     font-family: Verdana, sans-serif;
 }
@@ -167,4 +167,10 @@ img {
 
 input:hover {
     border: 3px solid #555;
+}
+
+.errors {
+    color: red;
+    margin-top: 25px;
+    margin-left: 250px;
 }

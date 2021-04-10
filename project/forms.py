@@ -77,8 +77,8 @@ class ChangeUsernameForm(FlaskForm):
     )
     submit = SubmitField('Change Username')
 
-    def validate_username(self, field):
-        user = Accounts.query.filter_by(username=field.data).first()
+    def validate_username(self, value):
+        user = Accounts.query.filter_by(username=value.data).first()
         if user is not None:
             raise ValidationError("Username already exists")
 
