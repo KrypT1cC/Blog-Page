@@ -102,13 +102,22 @@ def profile_settings():
 
     error = None
 
-    if change_user_form.validate_on_submit():
-        if bcrypt.check_password_hash(current_user.password, change_user_form.password.data):
-            current_user.username = change_user_form.username.data
-            db.session.commit()
-            return redirect(url_for('home'))
-        else:
-            error = "Password is incorrect"
+    if request.form.get('submit') == 'Change Username':
+        if change_user_form.validate_on_submit():
+            if bcrypt.check_password_hash(current_user.password, change_user_form.password.data):
+                current_user.username = change_user_form.username.data
+                db.session.commit()
+                return redirect(url_for('home'))
+            else:
+                error = "Password is incorrect"
+    elif request.form.get('submit') == 'Change Password':
+        if change_password_form.validate_on_submit():
+            if bcrypt.check_password_hash(current_user.password, change_password_form.current_password.data):
+                current_user.password = bcrypt.generate_password_hash(change_password_form.new_password.data, 15)
+                db.session.commit()
+                return redirect(url_for('home'))
+            else:
+                error = "Password is incorrect"
 
     return render_template(
         'profile_settings.html',

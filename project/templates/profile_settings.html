@@ -54,6 +54,7 @@
                 {{ change_pic_form.submit() }}
             </form>
             <div class="errors">
+                <!-- change username form errors -->
                 {% if change_user_form.errors %}
                     <ul>
                     {% if change_user_form.username.errors %}
@@ -67,17 +68,39 @@
                         {% endfor %}
                     {% endif %}
                     {% if change_user_form.password.errors %}
-                        {% for error in change_user_form.change_user_form.password.errors %}
+                        {% for error in change_user_form.password.errors %}
                             <li>{{ error }}</li>
                         {% endfor %}
                     {% endif %}
                     </ul>
                 {% endif %}
+
+                <!-- change password form errors -->
+                {% if change_password_form.errors %}
+                    <ul>
+                    {% if change_password_form.current_password.errors %}
+                        {% for error in change_password_form.current_password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    {% if change_password_form.new_password.errors %}
+                        {% for error in change_password_form.new_password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    {% if change_password_form.confirm_password.errors %}
+                        {% for error in change_password_form.confirm_password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+                {% endif %}
+
+                <!-- extra errors -->
                 {% if error %}
                     <li>{{ error }}</li>
                 {% endif %}
             </div>
-
         </div>
     </div>
 {% endblock %}

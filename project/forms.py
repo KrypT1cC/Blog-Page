@@ -101,7 +101,7 @@ class ChangePasswordForm(FlaskForm):
         "Confirm New Password",
         validators=[
             DataRequired(),
-            EqualTo('new_password')
+            EqualTo('new_password', message="New passwords don't match.")
         ]
     )
     submit = SubmitField("Change Password")
