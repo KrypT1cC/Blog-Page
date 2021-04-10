@@ -118,6 +118,14 @@ def profile_settings():
                 return redirect(url_for('home'))
             else:
                 error = "Password is incorrect"
+    elif request.form.get('submit') == 'Change Email':
+        if change_email_form.validate_on_submit():
+            if bcrypt.check_password_hash(current_user.password, change_email_form.password.data):
+                current_user.email = change_email_form.new_email.data
+                db.session.commit()
+                return redirect(url_for('home'))
+            else:
+                error = "Password is incorrect"
 
     return render_template(
         'profile_settings.html',

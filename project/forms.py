@@ -119,7 +119,7 @@ class ChangeEmailForm(FlaskForm):
         "Confirm Email",
         validators=[
             DataRequired(),
-            EqualTo('new_email')
+            EqualTo('new_email', message='Emails do not match')
         ]
     )
     password = PasswordField(
@@ -129,6 +129,11 @@ class ChangeEmailForm(FlaskForm):
         ]
     )
     submit = SubmitField('Change Email')
+
+    def validate_new_email(self, value):
+        user = Accounts.query.filter_by(email=value.data.lower()).first()
+        if user is not None:
+            raise ValidationError("Email already exists")
 
 
 class ChangeProfilePictureForm(FlaskForm):

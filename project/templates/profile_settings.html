@@ -96,6 +96,27 @@
                     </ul>
                 {% endif %}
 
+                <!-- change email form errors -->
+                {% if change_email_form.errors %}
+                    <ul>
+                    {% if change_email_form.new_email.errors %}
+                        {% for error in change_email_form.new_email.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    {% if change_email_form.confirm_email.errors %}
+                        {% for error in change_email_form.confirm_email.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    {% if change_email_form.password.errors %}
+                        {% for error in change_email_form.password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+                {% endif %}
+
                 <!-- extra errors -->
                 {% if error %}
                     <li>{{ error }}</li>
