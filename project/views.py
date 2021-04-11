@@ -88,7 +88,7 @@ def profile(username):
     if request.method == 'POST':
         if request.form['logout'] == 'Logout':
             logout_user()
-            return redirect(url_for('settings'))
+            return redirect(url_for('login'))
     user = Accounts.query.filter_by(username=username).first()
     return render_template('profile.html', user=current_user, friends=json.loads(user.friends), viewed_user=user)
 
@@ -139,6 +139,9 @@ def profile_settings():
         current_user.profile_picture = '/static/img/no-profile.jpg'
         db.session.commit()
         return redirect(url_for('home'))
+    elif request.form.get('logout') == 'Logout':
+        logout_user()
+        return redirect(url_for('login'))
 
     return render_template(
         'profile_settings.html',
