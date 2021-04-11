@@ -5,3 +5,5 @@ __pycache__
 venv
 
 accounts.db
+
+profile_pictures

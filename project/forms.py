@@ -140,7 +140,7 @@ class ChangeProfilePictureForm(FlaskForm):
     profile_pic = FileField(
         "Choose New Profile Picture",
         validators=[
-            FileRequired(),
+            FileRequired(message="No file attatched"),
             FileAllowed(['jpg', 'png'], message='Only .jpg and .png files are allowed')
         ]
     )

@@ -4,7 +4,8 @@ from project.forms import LoginForm, RegisterForm, ChangeUsernameForm, ChangePas
 from project.models import Accounts
 from flask_login import login_required, login_user, current_user, logout_user
 from flask import render_template, request, redirect, url_for, flash
-import json
+from werkzeug.utils import secure_filename
+import json, os
 
 
 @login_manager.user_loader
@@ -126,6 +127,14 @@ def profile_settings():
                 return redirect(url_for('home'))
             else:
                 error = "Password is incorrect"
+    elif request.form.get('submit') == 'Change Profile Picture':
+        if change_pic_form.validate_on_submit():
+            file = change_pic_form.profile_pic.data
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(os.environ.get('PROFILE_PHOTOS_PATH'), filename))
+            current_user.profile_picture = '/static/img/profile_pictures/' + filename
+            db.session.commit()
+            return redirect(url_for('home'))
 
     return render_template(
         'profile_settings.html',
