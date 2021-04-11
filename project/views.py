@@ -135,6 +135,10 @@ def profile_settings():
             current_user.profile_picture = '/static/img/profile_pictures/' + filename
             db.session.commit()
             return redirect(url_for('home'))
+    elif request.form.get('submit') == 'Remove Profile Picture':
+        current_user.profile_picture = '/static/img/no-profile.jpg'
+        db.session.commit()
+        return redirect(url_for('home'))
 
     return render_template(
         'profile_settings.html',

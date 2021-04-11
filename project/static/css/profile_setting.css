@@ -169,6 +169,11 @@ input:hover {
     border: 3px solid #555;
 }
 
+#remove-pic input{
+    position: relative;
+    bottom: 270px;
+}
+
 .errors {
     color: red;
     margin-top: 25px;

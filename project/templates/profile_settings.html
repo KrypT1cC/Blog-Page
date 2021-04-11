@@ -53,6 +53,9 @@
                 {{ change_pic_form.profile_pic() }}
                 {{ change_pic_form.submit() }}
             </form>
+            <form class="change-profile-pic" id="remove-pic" method="post">
+                <input type="submit" name="submit" id="submit" value="Remove Profile Picture">
+            </form>
             <div class="errors">
                 <!-- change username form errors -->
                 {% if change_user_form.errors %}
