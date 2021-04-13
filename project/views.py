@@ -51,7 +51,7 @@ def register():
         username = register_form.username.data
         password = bcrypt.generate_password_hash(register_form.password.data, 15)
         friends = []
-        profile_picture = '/static/img/no-profile.jpg'
+        profile_picture = '/static/img/profile_pictures/no-profile.jpg'
 
         new_user = Accounts(
             email=email,
@@ -136,7 +136,7 @@ def profile_settings():
             db.session.commit()
             return redirect(url_for('home'))
     elif request.form.get('submit') == 'Remove Profile Picture':
-        current_user.profile_picture = '/static/img/no-profile.jpg'
+        current_user.profile_picture = '/static/img/profile_pictures/no-profile.jpg'
         db.session.commit()
         return redirect(url_for('home'))
     elif request.form.get('logout') == 'Logout':
