@@ -34,11 +34,10 @@ def login():
         user = Accounts.query.filter_by(username=form.username.data).first()
         if user is not None and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            return redirect(url_for('home'))
+            return redirect(url_for('login'))
         else:
             error = "* Invalid login credentials."
     return render_template('login.html', form=form, error=error)
-    return render_template('login.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -50,6 +49,8 @@ def register():
         email = register_form.email.data.lower()
         username = register_form.username.data
         password = bcrypt.generate_password_hash(register_form.password.data, 15)
+        following = []
+        followers = []
         friends = []
         profile_picture = '/static/img/profile_pictures/no-profile.jpg'
 
@@ -57,13 +58,15 @@ def register():
             email=email,
             username=username,
             password=password,
+            following=json.dumps(following),
+            followers=json.dumps(followers),
             friends=json.dumps(friends),
             profile_picture=profile_picture
         )
 
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('forgot_password'))
+        return redirect(url_for('login'))
     return render_template('register.html', form=register_form)
 
 
@@ -90,7 +93,7 @@ def profile(username):
             logout_user()
             return redirect(url_for('login'))
     user = Accounts.query.filter_by(username=username).first()
-    return render_template('profile.html', user=current_user, friends=json.loads(user.friends), viewed_user=user)
+    return render_template('profile.html', user=current_user, viewed_user=user, json=json)
 
 
 @app.route('/settings', methods=['GET', 'POST'])
@@ -131,7 +134,7 @@ def profile_settings():
         if change_pic_form.validate_on_submit():
             file = change_pic_form.profile_pic.data
             filename = secure_filename(file.filename)
-            file.save(os.path.join(os.environ.get('PROFILE_PHOTOS_PATH'), filename))
+            file.save(os.path.join("/static/img/profile_pictures", filename))
             current_user.profile_picture = '/static/img/profile_pictures/' + filename
             db.session.commit()
             return redirect(url_for('home'))

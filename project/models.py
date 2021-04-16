@@ -8,7 +8,8 @@ class Accounts(db.Model, UserMixin):
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
     profile_picture = db.Column(db.String(), unique=False, nullable=False)
-    # add following
+    followers = db.Column(db.String(), unique=False, nullable=True)
+    following = db.Column(db.String(), unique=False, nullable=True)
     friends = db.Column(db.String(), unique=False, nullable=True)
 
     @staticmethod

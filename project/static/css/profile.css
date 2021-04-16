@@ -131,3 +131,17 @@ form {
     left: 25px;
     margin-top: 5px;
 }
+
+.follow-button{
+    width: 100%;
+    height: 50px;
+}
+
+.follow-button input{
+    width: 50%;
+    height: 25px;
+    position: relative;
+    top: 25px;
+    right: 100px;
+    margin: 10px;
+}
