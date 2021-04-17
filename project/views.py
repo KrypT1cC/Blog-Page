@@ -102,8 +102,19 @@ def profile(username):
         current_user.following = json.dumps(following)
         db.session.commit()
     elif request.form.get('submit') == 'Following':
-        pass
-    return render_template('profile.html', user=current_user, viewed_user=viewed_user, json=json)
+        viewed_followers.remove(current_user.username)
+        following.remove(viewed_user.username)
+        viewed_user.followers = json.dumps(viewed_followers)
+        current_user.following = json.dumps(following)
+        db.session.commit()
+    return render_template(
+        'profile.html',
+        user=current_user,
+        viewed_user=viewed_user,
+        user_following=json.loads(current_user.following),
+        viewed_followers=json.loads(viewed_user.followers),
+        viewed_friends=json.loads(viewed_user.friends)
+    )
 
 
 @app.route('/settings', methods=['GET', 'POST'])

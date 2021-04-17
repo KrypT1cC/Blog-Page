@@ -9,11 +9,11 @@
         <div class="profile-info">
             <h1>{{ viewed_user.username }}</h1>
             <div class="followers">
-                <p>{{ json.loads(viewed_user.followers)|length }}</p>
-                <p>Followers
+                <p>{{ viewed_followers|length }}</p>
+                <p>Followers</p>
                 {% if viewed_user != user %}
                     <form class="follow-button" method="post">
-                        {% for follow in json.loads(user.following) %}
+                        {% for follow in user_following %}
                             {% if follow == viewed_user.username %}
                                 <input type="submit" name="submit" value="Following">
                             {% endif %}
@@ -24,7 +24,7 @@
                 {% endif %}
             </div>
             <div class="friends">
-                <p>{{ json.loads(user.friends)|length }}</p>
+                <p>{{ viewed_friends|length }}</p>
                 <p>Friends</p>
             </div>
         </div>
