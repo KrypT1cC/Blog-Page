@@ -88,12 +88,22 @@ def dm():
 @app.route('/profile/<username>', methods=['GET', 'POST'])
 @login_required
 def profile(username):
-    if request.method == 'POST':
-        if request.form['logout'] == 'Logout':
-            logout_user()
-            return redirect(url_for('login'))
-    user = Accounts.query.filter_by(username=username).first()
-    return render_template('profile.html', user=current_user, viewed_user=user, json=json)
+    following = json.loads(current_user.following)
+    viewed_user = Accounts.query.filter_by(username=username).first()
+    viewed_followers = json.loads(viewed_user.followers)
+
+    if request.form.get('logout') == 'Logout':
+        logout_user()
+        return redirect(url_for('login'))
+    elif request.form.get('submit') == 'Follow':
+        viewed_followers.append(current_user.username)
+        viewed_user.followers = json.dumps(viewed_followers)
+        following.append(viewed_user.username)
+        current_user.following = json.dumps(following)
+        db.session.commit()
+    elif request.form.get('submit') == 'Following':
+        pass
+    return render_template('profile.html', user=current_user, viewed_user=viewed_user, json=json)
 
 
 @app.route('/settings', methods=['GET', 'POST'])
