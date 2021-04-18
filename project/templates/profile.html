@@ -13,13 +13,7 @@
                 <p>Followers</p>
                 {% if viewed_user != user %}
                     <form class="follow-button" method="post">
-                        {% for follow in user_following %}
-                            {% if follow == viewed_user.username %}
-                                <input type="submit" name="submit" value="Following">
-                            {% endif %}
-                        {% else %}
-                            <input type="submit" name="submit" value="Follow">
-                        {% endfor %}
+                        <input type="submit" name="submit" value="{{ follow_value }}">
                     </form>
                 {% endif %}
             </div>

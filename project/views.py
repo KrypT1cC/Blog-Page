@@ -89,31 +89,62 @@ def dm():
 @login_required
 def profile(username):
     following = json.loads(current_user.following)
+    followers = json.loads(current_user.followers)
+    friends = json.loads(current_user.friends)
     viewed_user = Accounts.query.filter_by(username=username).first()
     viewed_followers = json.loads(viewed_user.followers)
+    viewed_frineds = json.loads(viewed_user.friends)
+    follow_value = 'Follow'
 
     if request.form.get('logout') == 'Logout':
         logout_user()
         return redirect(url_for('login'))
     elif request.form.get('submit') == 'Follow':
         viewed_followers.append(current_user.username)
-        viewed_user.followers = json.dumps(viewed_followers)
         following.append(viewed_user.username)
+        '''
+        following button disappears if you are following someone
+        '''
+        for account in following:
+            for follower in followers:
+                if account and follower == viewed_user.username:
+                    friends.append(viewed_user.username)
+                    viewed_frineds.append(current_user.username)
+
+        # update following/followers
         current_user.following = json.dumps(following)
+        viewed_user.followers = json.dumps(viewed_followers)
+        # update friends
+        current_user.friends = json.dumps(friends)
+        viewed_user.friends = json.dumps(viewed_frineds)
         db.session.commit()
     elif request.form.get('submit') == 'Following':
+        for account in following:
+            for follower in followers:
+                if account and follower == viewed_user.username:
+                    friends.remove(viewed_user.username)
+                    viewed_frineds.remove(current_user.username)
+
         viewed_followers.remove(current_user.username)
         following.remove(viewed_user.username)
         viewed_user.followers = json.dumps(viewed_followers)
         current_user.following = json.dumps(following)
+
+        current_user.friends = json.dumps(friends)
+        viewed_user.friends = json.dumps(viewed_frineds)
         db.session.commit()
+
+    for follow in following:
+        if follow == viewed_user.username:
+            follow_value = 'Following'
     return render_template(
         'profile.html',
         user=current_user,
         viewed_user=viewed_user,
         user_following=json.loads(current_user.following),
         viewed_followers=json.loads(viewed_user.followers),
-        viewed_friends=json.loads(viewed_user.friends)
+        viewed_friends=json.loads(viewed_user.friends),
+        follow_value=follow_value
     )
 
 
