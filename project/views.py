@@ -1,6 +1,6 @@
 from project import app, db, bcrypt, login_manager
 from project.forms import LoginForm, RegisterForm, ChangeUsernameForm, ChangePasswordForm, ChangeEmailForm, \
-    ChangeProfilePictureForm
+    ChangeProfilePictureForm, CreateChat
 from project.models import Accounts
 from flask_login import login_required, login_user, current_user, logout_user
 from flask import render_template, request, redirect, url_for, flash
@@ -78,11 +78,16 @@ def forgot_password():
 @app.route('/dm', methods=['GET', 'POST'])
 @login_required
 def dm():
-    if request.method == 'POST':
-        if request.form['logout'] == 'Logout':
-            logout_user()
-            return redirect(url_for('login'))
-    return render_template('dms.html', user=current_user, friends=json.loads(current_user.friends))
+    create_chat = CreateChat()
+    if request.form.get('logout') == 'Logout':
+        logout_user()
+        return redirect(url_for('login'))
+    return render_template(
+        'dms.html',
+        user=current_user,
+        friends=json.loads(current_user.friends),
+        create_chat=create_chat
+    )
 
 
 @app.route('/profile/<username>', methods=['GET', 'POST'])

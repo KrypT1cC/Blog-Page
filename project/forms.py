@@ -54,6 +54,9 @@ class RegisterForm(FlaskForm):
             raise ValidationError("Username already exists")
 
 
+# forms for changing account information
+
+
 class ChangeUsernameForm(FlaskForm):
     username = StringField(
         'Username',
@@ -145,3 +148,16 @@ class ChangeProfilePictureForm(FlaskForm):
         ]
     )
     submit = SubmitField("Change Profile Picture")
+
+
+# form for creating new chat
+
+
+class CreateChat(FlaskForm):
+    accounts = StringField(
+        "Accounts",
+        validators=[
+            DataRequired()
+        ]
+    )
+    submit = SubmitField('Create Chat')

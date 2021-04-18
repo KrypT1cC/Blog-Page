@@ -17,3 +17,9 @@ class Accounts(db.Model, UserMixin):
         user = Accounts.query.filter_by(id=ID).first()
         return user
 
+
+class Messages(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    accounts = db.Column(db.String(), unique=True, nullable=False)
+    messages = db.Column(db.String(), unique=False, nullable=True)
+

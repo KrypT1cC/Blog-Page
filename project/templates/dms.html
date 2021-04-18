@@ -8,6 +8,7 @@
     <div class="DM">
         <div class="accounts">
             <p>Accounts</p>
+            <button onclick="" type="submit" id="create-button">Create Chat</button>
         <!-- loop through friends list-->
             {% for friend in friends %}
                 <a href=""><button>{{ friend }}</button></a>
@@ -15,6 +16,15 @@
         </div>
         <div class="messages">
             <p>Messages</p>
+            <div class="message-text">
+
+            </div>
         </div>
+        <form class="create-form-popup">
+                {{ create_chat.csrf_token }}
+                {{ create_chat.accounts.label }}
+                {{ create_chat.accounts() }}
+                {{ create_chat.submit() }}
+        </form>
     </div>
 {% endblock %}
