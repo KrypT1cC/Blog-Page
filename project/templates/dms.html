@@ -2,13 +2,14 @@
 {% block title %}Direct Messages{% endblock %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dms.css') }}">
+    <script src="{{ url_for('static', filename='js/dms_functions.js') }}"></script>
 {% endblock%}
 {% block content %}
     {% block navbar %}{{ super() }}{% endblock %}
     <div class="DM">
         <div class="accounts">
             <p>Accounts</p>
-            <button onclick="" type="submit" id="create-button">Create Chat</button>
+            <button onclick="showCreate()" type="submit" id="create-button">Create Chat</button>
         <!-- loop through friends list-->
             {% for friend in friends %}
                 <a href=""><button>{{ friend }}</button></a>
@@ -21,10 +22,15 @@
             </div>
         </div>
         <form class="create-form-popup">
+            <div class="create-form-background">
                 {{ create_chat.csrf_token }}
                 {{ create_chat.accounts.label }}
                 {{ create_chat.accounts() }}
                 {{ create_chat.submit() }}
+                </br>
+                <button type="submit" onclick="hideCreate()">Cancel</button>
+            </div>
         </form>
     </div>
+    <div id="dimmer"></div>
 {% endblock %}
