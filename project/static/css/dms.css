@@ -144,16 +144,36 @@ img {
 .create-form-popup {
     height: 200px;
     position: fixed;
-    positon: relative;
     top: 300px;
     left: 800px;
     display: none;
     z-index: 1;
 }
 
+.create-form-popup input {
+    width: 250px;
+    height: 25px;
+    margin-bottom: 10px;
+}
+
+.create-form-popup input[type="submit"] {
+    width: 100px;
+    position: relative;
+    left: 75px;
+}
+
 .create-form-background {
     width: 250px;
-    height: 100px;
+    height: 150px;
     padding: 25px;
     background: white;
+}
+
+.errors {
+    width: 175px;
+    height :75px;
+    position: relative;
+    left: 75px;
+    bottom: 25px;
+    color: red;
 }

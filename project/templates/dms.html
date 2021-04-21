@@ -21,7 +21,7 @@
 
             </div>
         </div>
-        <form class="create-form-popup">
+        <form class="create-form-popup" method="post">
             <div class="create-form-background">
                 {{ create_chat.csrf_token }}
                 {{ create_chat.accounts.label }}
@@ -29,6 +29,17 @@
                 {{ create_chat.submit() }}
                 </br>
                 <button type="submit" onclick="hideCreate()">Cancel</button>
+                <div class="errors">
+                    {% if create_chat.errors %}
+                    <ul>
+                        {% if create_chat.accounts.errors %}
+                            {% for error in create_chat.accounts.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </div>
             </div>
         </form>
     </div>

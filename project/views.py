@@ -79,9 +79,14 @@ def forgot_password():
 @login_required
 def dm():
     create_chat = CreateChat()
+
+    if create_chat.validate_on_submit():
+        pass
+
     if request.form.get('logout') == 'Logout':
         logout_user()
         return redirect(url_for('login'))
+
     return render_template(
         'dms.html',
         user=current_user,
