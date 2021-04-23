@@ -163,7 +163,6 @@ class CreateChat(FlaskForm):
     submit = SubmitField('Create Chat')
 
     def validate_accounts(self, value):
-        if value.data.lower() == "Test":
-            print('not matcher')
+        if value.data.lower() == "test":
             raise ValidationError("Not matched")
 

@@ -10,6 +10,15 @@
         <div class="accounts">
             <p>Accounts</p>
             <button onclick="showCreate()" type="submit" id="create-button">Create Chat</button>
+            {% with messages = get_flashed_messages() %}
+               {% if messages %}
+                 <ul class="flashes">
+                    {% for message in messages %}
+                     <div class="message_flash">{{ "*" + message }}</div>
+                    {% endfor %}
+                </ul>
+               {% endif %}
+             {% endwith %}
         <!-- loop through friends list-->
             {% for friend in friends %}
                 <a href=""><button>{{ friend }}</button></a>

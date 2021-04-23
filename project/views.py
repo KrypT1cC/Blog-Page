@@ -82,6 +82,8 @@ def dm():
 
     if create_chat.validate_on_submit():
         pass
+    elif create_chat.errors:
+        flash('There was an error creating your chat')
 
     if request.form.get('logout') == 'Logout':
         logout_user()

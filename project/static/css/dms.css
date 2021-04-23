@@ -177,3 +177,12 @@ img {
     bottom: 25px;
     color: red;
 }
+
+.flashes {
+    padding-left: 10px;
+}
+
+.message_flash {
+    color: red;
+    font-size: 14px;
+}
