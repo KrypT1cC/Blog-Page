@@ -3,6 +3,8 @@ from wtforms import StringField, PasswordField, SubmitField, ValidationError, Fi
 from flask_wtf.file import FileRequired, FileAllowed
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from project.models import Accounts
+from flask_login import current_user
+import json
 
 
 class LoginForm(FlaskForm):
@@ -163,6 +165,10 @@ class CreateChat(FlaskForm):
     submit = SubmitField('Create Chat')
 
     def validate_accounts(self, value):
-        if value.data.lower() == "test":
-            raise ValidationError("Not matched")
-
+        account_list = value.data.split(', ')
+        for account in account_list:
+            user = Accounts.query.filter_by(username=account).first()
+            if user is None:
+                raise ValidationError('Account does not exist: ' + account)
+            if account not in json.loads(current_user.friends) and account is not current_user.username:
+                raise ValidationError('Not friends with: ' + account)

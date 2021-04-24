@@ -81,6 +81,7 @@ def dm():
     create_chat = CreateChat()
 
     if create_chat.validate_on_submit():
+        accounts = create_chat.accounts.data.split(', ')
         pass
     elif create_chat.errors:
         flash('There was an error creating your chat')
