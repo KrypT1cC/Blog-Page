@@ -20,8 +20,8 @@
                {% endif %}
              {% endwith %}
         <!-- loop through friends list-->
-            {% for friend in friends %}
-                <a href=""><button>{{ friend }}</button></a>
+            {% for chat in chats %}
+                <a href=""><button>{{ chat.chat_name }}</button></a>
             {% endfor %}
         </div>
         <div class="messages">

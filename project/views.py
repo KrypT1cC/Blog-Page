@@ -1,7 +1,7 @@
 from project import app, db, bcrypt, login_manager
 from project.forms import LoginForm, RegisterForm, ChangeUsernameForm, ChangePasswordForm, ChangeEmailForm, \
     ChangeProfilePictureForm, CreateChat
-from project.models import Accounts
+from project.models import Accounts, Messages
 from flask_login import login_required, login_user, current_user, logout_user
 from flask import render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
@@ -81,8 +81,19 @@ def dm():
     create_chat = CreateChat()
 
     if create_chat.validate_on_submit():
-        accounts = create_chat.accounts.data.split(', ')
-        pass
+        create_accounts = create_chat.accounts.data.split(', ')
+        accounts = []
+
+        for account in create_accounts:
+            if account not in accounts:
+                accounts.append(account)
+
+        chat_name = "Chat: " + " ".join(str(x) for x in accounts)
+        messages = []
+
+        new_chat = Messages(accounts=json.dumps(accounts), chat_name=chat_name, messages=json.dumps(messages), account=current_user)
+        db.session.add(new_chat)
+        db.session.commit()
     elif create_chat.errors:
         flash('There was an error creating your chat')
 
@@ -94,6 +105,7 @@ def dm():
         'dms.html',
         user=current_user,
         friends=json.loads(current_user.friends),
+        chats=current_user.chats,
         create_chat=create_chat
     )
 

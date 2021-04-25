@@ -170,5 +170,5 @@ class CreateChat(FlaskForm):
             user = Accounts.query.filter_by(username=account).first()
             if user is None:
                 raise ValidationError('Account does not exist: ' + account)
-            if account not in json.loads(current_user.friends) and account is not current_user.username:
+            if account not in json.loads(current_user.friends) and account != current_user.username:
                 raise ValidationError('Not friends with: ' + account)

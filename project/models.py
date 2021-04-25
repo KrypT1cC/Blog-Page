@@ -11,6 +11,7 @@ class Accounts(db.Model, UserMixin):
     followers = db.Column(db.String(), unique=False, nullable=True)
     following = db.Column(db.String(), unique=False, nullable=True)
     friends = db.Column(db.String(), unique=False, nullable=True)
+    chats = db.relationship('Messages', backref='account')
 
     @staticmethod
     def get(ID):
@@ -20,6 +21,7 @@ class Accounts(db.Model, UserMixin):
 
 class Messages(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    chat_name = db.Column(db.String(), unique=False, nullable=False)
     accounts = db.Column(db.String(), unique=True, nullable=False)
     messages = db.Column(db.String(), unique=False, nullable=True)
-
+    account_id = db.Column(db.Integer, db.ForeignKey('accounts.id'))
