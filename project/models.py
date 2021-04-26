@@ -2,6 +2,13 @@ from project import db
 from flask_login import UserMixin
 
 
+chats = db.Table(
+    'chats',
+    db.Column('user_id', db.Integer, db.ForeignKey('accounts.id'), primary_key=True),
+    db.Column('chat_id', db.Integer, db.ForeignKey('messages.id'), primary_key=True)
+)
+
+
 class Accounts(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
@@ -11,7 +18,9 @@ class Accounts(db.Model, UserMixin):
     followers = db.Column(db.String(), unique=False, nullable=True)
     following = db.Column(db.String(), unique=False, nullable=True)
     friends = db.Column(db.String(), unique=False, nullable=True)
-    chats = db.relationship('Messages', backref='account')
+
+    # backref is referenced in the Messages class
+    chats = db.relationship('Messages', secondary=chats, backref=db.backref('chat_users', lazy='dynamic'))
 
     @staticmethod
     def get(ID):
@@ -24,4 +33,3 @@ class Messages(db.Model, UserMixin):
     chat_name = db.Column(db.String(), unique=False, nullable=False)
     accounts = db.Column(db.String(), unique=True, nullable=False)
     messages = db.Column(db.String(), unique=False, nullable=True)
-    account_id = db.Column(db.Integer, db.ForeignKey('accounts.id'))
