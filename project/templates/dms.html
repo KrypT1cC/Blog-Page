@@ -27,7 +27,12 @@
         <div class="messages">
             <p>Messages</p>
             <div class="message-text">
-
+                {% for chat in chats %}
+                    <p>{{ chat.messages }}</p>
+                    {% for message in json.loads(chat.messages) %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                {% endfor %}
             </div>
         </div>
         <form class="create-form-popup" method="post">

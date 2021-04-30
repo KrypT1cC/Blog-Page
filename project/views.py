@@ -111,7 +111,8 @@ def dm():
         user=current_user,
         friends=json.loads(current_user.friends),
         chats=current_user.chats,
-        create_chat=create_chat
+        create_chat=create_chat,
+        json=json
     )
 
 

@@ -1,3 +1,8 @@
+window.onload = function()
+{
+
+}
+
 function showCreate()
 {
     var formItems = [...document.getElementsByClassName('create-form-popup')];
@@ -18,4 +23,10 @@ function hideCreate()
         formItems[i].style.display = "none";
     }
     background.style.display = "none";
+}
+
+function scrollBottom()
+{
+    var scrollDiv = [...document.getElementsByClassName('message-text')][0];
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
 }

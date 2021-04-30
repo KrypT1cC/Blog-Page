@@ -130,6 +130,7 @@ img {
     width: 95%;
     height: 80%;
     margin: 15px;
+    overflow-y: auto;
 }
 
 #create-button {
