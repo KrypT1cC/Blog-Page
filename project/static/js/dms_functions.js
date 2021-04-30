@@ -1,6 +1,6 @@
 window.onload = function()
 {
-
+    scrollBottom();
 }
 
 function showCreate()
