@@ -133,6 +133,11 @@ img {
     overflow-y: auto;
 }
 
+.message-text p {
+    width: 100%;
+    padding: 0;
+}
+
 #create-button {
     width: 125px;
     height: 25px;

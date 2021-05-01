@@ -25,6 +25,23 @@ function hideCreate()
     background.style.display = "none";
 }
 
+function showChats(className)
+{
+    var messages = [...document.getElementById('message-text').children];
+    for (var i = 0; i < messages.length; i++)
+    {
+        if (messages[i].className == className)
+        {
+            messages[i].style.display = "block";
+        }
+        else
+        {
+            messages[i].style.display = "none";
+        }
+    }
+    scrollBottom();
+}
+
 function scrollBottom()
 {
     var scrollDiv = [...document.getElementsByClassName('message-text')][0];

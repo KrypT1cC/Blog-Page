@@ -21,16 +21,18 @@
              {% endwith %}
         <!-- loop through friends list-->
             {% for chat in chats %}
-                <a href=""><button>{{ chat.chat_name }}</button></a>
+                <button class="{{ chat.chat_name }}" onclick="showChats('{{ 'c' + chat.id|string }}')">{{ chat.chat_name }}</button>
             {% endfor %}
         </div>
         <div class="messages">
             <p>Messages</p>
-            <div class="message-text">
+            <div class="message-text" id="message-text">
                 {% for chat in chats %}
-                    <p>{{ chat.messages }}</p>
+                    {% if json.loads(chat.messages)|length == 0 %}
+                        <p class="{{ 'c' + chat.id|string }}" style="display: none;">You have yet to send a text.</p>
+                    {% endif %}
                     {% for message in json.loads(chat.messages) %}
-                        <p>{{ message }}</p>
+                        <p class="{{ 'c' + chat.id|string }}" style="display: none;">{{ message }}</p>
                     {% endfor %}
                 {% endfor %}
             </div>
