@@ -192,3 +192,8 @@ img {
     color: red;
     font-size: 14px;
 }
+
+.message-input form {
+    top: 0;
+    display: inline;
+}

@@ -172,3 +172,13 @@ class CreateChat(FlaskForm):
                 raise ValidationError('Account does not exist: ' + account)
             if account not in json.loads(current_user.friends) and account != current_user.username:
                 raise ValidationError('Not friends with: ' + account)
+
+
+class SendMessage(FlaskForm):
+    message = StringField(
+        'Message',
+        validators=[
+            DataRequired()
+        ]
+    )
+    submit = SubmitField('Send Message')

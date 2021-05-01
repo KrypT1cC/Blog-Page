@@ -1,6 +1,6 @@
 from project import app, db, bcrypt, login_manager
 from project.forms import LoginForm, RegisterForm, ChangeUsernameForm, ChangePasswordForm, ChangeEmailForm, \
-    ChangeProfilePictureForm, CreateChat
+    ChangeProfilePictureForm, CreateChat, SendMessage
 from project.models import Accounts, Messages
 from flask_login import login_required, login_user, current_user, logout_user
 from flask import render_template, request, redirect, url_for, flash
@@ -79,6 +79,7 @@ def forgot_password():
 @login_required
 def dm():
     create_chat = CreateChat()
+    send_message = SendMessage()
 
     if create_chat.validate_on_submit():
         create_accounts = create_chat.accounts.data.split(', ')
@@ -112,6 +113,7 @@ def dm():
         friends=json.loads(current_user.friends),
         chats=current_user.chats,
         create_chat=create_chat,
+        send_message=send_message,
         json=json
     )
 

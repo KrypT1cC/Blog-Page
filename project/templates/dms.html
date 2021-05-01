@@ -36,6 +36,14 @@
                     {% endfor %}
                 {% endfor %}
             </div>
+            <div class="message-input">
+                <form method="post" class="message-input">
+                    {{ send_message.csrf_token }}
+                    {{ send_message.message.label }}
+                    {{ send_message.message() }}
+                    {{ send_message.submit() }}
+                </form>
+            </div>
         </div>
         <form class="create-form-popup" method="post">
             <div class="create-form-background">
