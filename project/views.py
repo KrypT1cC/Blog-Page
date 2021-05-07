@@ -81,29 +81,31 @@ def dm():
     create_chat = CreateChat()
     send_message = SendMessage()
 
-    if create_chat.validate_on_submit():
-        create_accounts = create_chat.accounts.data.split(', ')
-        accounts = [current_user.username]
+    if request.form.get('submit') == 'Create Chat':
+        if create_chat.validate_on_submit():
+            create_accounts = create_chat.accounts.data.split(', ')
+            accounts = [current_user.username]
 
-        for account in create_accounts:
-            if account not in accounts:
-                accounts.append(account)
+            for account in create_accounts:
+                if account not in accounts:
+                    accounts.append(account)
 
-        chat_name = "Chat: " + " ".join(str(x) for x in accounts)
-        messages = []
+            chat_name = "Chat: " + " ".join(str(x) for x in accounts)
+            messages = []
 
-        new_chat = Messages(accounts=json.dumps(accounts), chat_name=chat_name, messages=json.dumps(messages))
-        db.session.add(new_chat)
-        db.session.commit()
+            new_chat = Messages(accounts=json.dumps(accounts), chat_name=chat_name, messages=json.dumps(messages))
+            db.session.add(new_chat)
+            db.session.commit()
 
-        for user_username in accounts:
-            user = Accounts.query.filter_by(username=user_username).first()
-            new_chat.chat_users.append(user)
-        db.session.commit()
-    elif create_chat.errors:
-        flash('There was an error creating your chat')
-
-    if request.form.get('logout') == 'Logout':
+            for user_username in accounts:
+                user = Accounts.query.filter_by(username=user_username).first()
+                new_chat.chat_users.append(user)
+            db.session.commit()
+        elif create_chat.errors:
+            flash('There was an error creating your chat')
+    elif request.form.get('submit') == 'Send Message':
+        pass
+    elif request.form.get('logout') == 'Logout':
         logout_user()
         return redirect(url_for('login'))
 

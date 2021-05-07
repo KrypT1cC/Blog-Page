@@ -2,6 +2,7 @@
 {% block title %}Direct Messages{% endblock %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dms.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/dms_functions.js') }}"></script>
 {% endblock%}
 {% block content %}
@@ -37,7 +38,7 @@
                 {% endfor %}
             </div>
             <div class="message-input">
-                <form method="post" class="message-input">
+                <form method="post" class="message-input" onsubmit="getChatMessage()">
                     {{ send_message.csrf_token }}
                     {{ send_message.message.label }}
                     {{ send_message.message() }}

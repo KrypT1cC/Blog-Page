@@ -47,3 +47,17 @@ function scrollBottom()
     var scrollDiv = [...document.getElementsByClassName('message-text')][0];
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
 }
+
+function getChatMessage()
+{
+    var messages = [...document.getElementById('message-text').children];
+    for (var i = 0; i < messages.length; i++)
+    {
+        if (messages[i].style.display == "block")
+        {
+            $.post( "/dm", {
+                class_name: messages[i].className
+            });
+        }
+    }
+}
