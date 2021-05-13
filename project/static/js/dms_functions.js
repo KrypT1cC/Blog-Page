@@ -55,9 +55,8 @@ function getChatMessage()
     {
         if (messages[i].style.display == "block")
         {
-            $.post( "/dm", {
-                class_name: messages[i].className
-            });
+            return messages[i].className;
         }
     }
+    return none;
 }

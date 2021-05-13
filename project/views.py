@@ -1,8 +1,9 @@
-from project import app, db, bcrypt, login_manager
+from project import app, db, bcrypt, login_manager, socketio
 from project.forms import LoginForm, RegisterForm, ChangeUsernameForm, ChangePasswordForm, ChangeEmailForm, \
     ChangeProfilePictureForm, CreateChat, SendMessage
 from project.models import Accounts, Messages
 from flask_login import login_required, login_user, current_user, logout_user
+from flask_socketio import send
 from flask import render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 import json, os
@@ -75,6 +76,12 @@ def forgot_password():
     return "forgot"
 
 
+@socketio.on('message')
+def handle_message(message):
+    print(message)
+    send(message)
+
+
 @app.route('/dm', methods=['GET', 'POST'])
 @login_required
 def dm():
@@ -108,7 +115,6 @@ def dm():
     elif request.form.get('logout') == 'Logout':
         logout_user()
         return redirect(url_for('login'))
-
     return render_template(
         'dms.html',
         user=current_user,

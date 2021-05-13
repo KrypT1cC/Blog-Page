@@ -4,6 +4,18 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dms.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/dms_functions.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <!--Use getCurrentChat to get class name (id) and use socketio to append to the id section-->
+    <script type="text/javascript" charset="utf-8">
+        var socket = io();
+        socket.on('connect', function() {
+            socket.send('User has connected');
+        });
+
+        socket.on('message', function(message) {
+
+        });
+    </script>
 {% endblock%}
 {% block content %}
     {% block navbar %}{{ super() }}{% endblock %}
@@ -29,16 +41,18 @@
             <p>Messages</p>
             <div class="message-text" id="message-text">
                 {% for chat in chats %}
+                    <div id ="c{{ chat.id }}">
                     {% if json.loads(chat.messages)|length == 0 %}
                         <p class="{{ 'c' + chat.id|string }}" style="display: none;">You have yet to send a text.</p>
                     {% endif %}
                     {% for message in json.loads(chat.messages) %}
                         <p class="{{ 'c' + chat.id|string }}" style="display: none;">{{ message }}</p>
                     {% endfor %}
+                    </div>
                 {% endfor %}
             </div>
             <div class="message-input">
-                <form method="post" class="message-input" onsubmit="getChatMessage()">
+                <form method="post" class="message-input">
                     {{ send_message.csrf_token }}
                     {{ send_message.message.label }}
                     {{ send_message.message() }}
