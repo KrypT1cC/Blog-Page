@@ -13,7 +13,7 @@
         });
 
         socket.on('message', function(message) {
-
+            $('#c{{ chat.id }}').append('<p>' + message + '</p>');
         });
     </script>
 {% endblock%}
@@ -41,12 +41,12 @@
             <p>Messages</p>
             <div class="message-text" id="message-text">
                 {% for chat in chats %}
-                    <div id ="c{{ chat.id }}">
+                    <div id="c{{ chat.id }}" class="c{{ chat.id }}" style="display: none;">
                     {% if json.loads(chat.messages)|length == 0 %}
-                        <p class="{{ 'c' + chat.id|string }}" style="display: none;">You have yet to send a text.</p>
+                        <p class="{{ 'c' + chat.id|string }}">You have yet to send a text.</p>
                     {% endif %}
                     {% for message in json.loads(chat.messages) %}
-                        <p class="{{ 'c' + chat.id|string }}" style="display: none;">{{ message }}</p>
+                        <p class="{{ 'c' + chat.id|string }}">{{ message }}</p>
                     {% endfor %}
                     </div>
                 {% endfor %}
