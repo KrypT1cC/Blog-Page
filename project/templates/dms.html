@@ -16,6 +16,7 @@
             });
 
             socket.on('message', function(message) {
+                // adds message to the correct div
                 var chatId = getChatMessage();
                 $('#' + chatId).append('<p>' + message + '</p>');
             });
@@ -24,6 +25,7 @@
                 let input = $('#message');
                 if (input.val() !== "")
                 {
+                    // sends msg content and the chat id for python to access
                     socket.send(input.val() + getChatMessage().substring(1));
                     input.val('');
                 }

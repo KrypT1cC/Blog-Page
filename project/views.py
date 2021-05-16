@@ -77,6 +77,7 @@ def forgot_password():
 
 @socketio.on('message')
 def handle_message(message):
+    # processes data from javascript and append new message to database
     msg_content = message[0: -1]
     msg_id = int(message[-1])
     chat = Messages.query.filter_by(id=msg_id).first()
@@ -86,7 +87,7 @@ def handle_message(message):
     chat.messages = json.dumps(chat_msg)
 
     db.session.commit()
-    send(msg_content)
+    send(msg_content)  # sends back to javascript to add on div
 
 
 @app.route('/dm', methods=['GET', 'POST'])
