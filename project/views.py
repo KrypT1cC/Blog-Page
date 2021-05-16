@@ -1,6 +1,6 @@
 from project import app, db, bcrypt, login_manager, socketio
 from project.forms import LoginForm, RegisterForm, ChangeUsernameForm, ChangePasswordForm, ChangeEmailForm, \
-    ChangeProfilePictureForm, CreateChat, SendMessage
+    ChangeProfilePictureForm, CreateChat
 from project.models import Accounts, Messages
 from flask_login import login_required, login_user, current_user, logout_user
 from flask_socketio import send
@@ -43,7 +43,6 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-
     register_form = RegisterForm()
 
     if register_form.validate_on_submit():
@@ -78,15 +77,22 @@ def forgot_password():
 
 @socketio.on('message')
 def handle_message(message):
-    print(message)
-    send(message)
+    msg_content = message[0: -1]
+    msg_id = int(message[-1])
+    chat = Messages.query.filter_by(id=msg_id).first()
+    chat_msg = json.loads(chat.messages)
+
+    chat_msg.append(msg_content)
+    chat.messages = json.dumps(chat_msg)
+
+    db.session.commit()
+    send(msg_content)
 
 
 @app.route('/dm', methods=['GET', 'POST'])
 @login_required
 def dm():
     create_chat = CreateChat()
-    send_message = SendMessage()
 
     if request.form.get('submit') == 'Create Chat':
         if create_chat.validate_on_submit():
@@ -110,8 +116,6 @@ def dm():
             db.session.commit()
         elif create_chat.errors:
             flash('There was an error creating your chat')
-    elif request.form.get('submit') == 'Send Message':
-        pass
     elif request.form.get('logout') == 'Logout':
         logout_user()
         return redirect(url_for('login'))
@@ -121,7 +125,6 @@ def dm():
         friends=json.loads(current_user.friends),
         chats=current_user.chats,
         create_chat=create_chat,
-        send_message=send_message,
         json=json
     )
 

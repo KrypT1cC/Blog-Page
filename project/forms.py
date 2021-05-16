@@ -174,11 +174,3 @@ class CreateChat(FlaskForm):
                 raise ValidationError('Not friends with: ' + account)
 
 
-class SendMessage(FlaskForm):
-    message = StringField(
-        'Message',
-        validators=[
-            DataRequired()
-        ]
-    )
-    submit = SubmitField('Send Message')

@@ -6,15 +6,44 @@
     <script src="{{ url_for('static', filename='js/dms_functions.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <!--Use getCurrentChat to get class name (id) and use socketio to append to the id section-->
+    <!-- bounce data back and forth with js and python-->
     <script type="text/javascript" charset="utf-8">
-        var socket = io();
-        socket.on('connect', function() {
-            socket.send('User has connected');
+        $(document).ready(function() {
+            console.log('ready');
+            var socket = io();
+            socket.on('connect', function() {
+                socket.send('User has connected');
+            });
+
+            socket.on('message', function(message) {
+                var chatId = getChatMessage();
+                $('#' + chatId).append('<p>' + message + '</p>');
+            });
+
+            $('.message-input').submit(function(event) {
+                let input = $('#message');
+                if (input.val() !== "")
+                {
+                    socket.send(input.val() + getChatMessage().substring(1));
+                    input.val('');
+                }
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            });
         });
 
-        socket.on('message', function(message) {
-            $('#c{{ chat.id }}').append('<p>' + message + '</p>');
-        });
+        function getChatMessage()
+        {
+            var messages = [...document.getElementById('message-text').children];
+            for (var i = 0; i < messages.length; i++)
+            {
+                if (messages[i].style.display === "block")
+                {
+                    return messages[i].className;
+                }
+            }
+            return null;
+        }
     </script>
 {% endblock%}
 {% block content %}
@@ -34,7 +63,7 @@
              {% endwith %}
         <!-- loop through friends list-->
             {% for chat in chats %}
-                <button class="{{ chat.chat_name }}" onclick="showChats('{{ 'c' + chat.id|string }}')">{{ chat.chat_name }}</button>
+                <button class="{{ chat.chat_name }}" onclick="showChats('c{{ chat.id }}')">{{ chat.chat_name }}</button>
             {% endfor %}
         </div>
         <div class="messages">
@@ -52,11 +81,9 @@
                 {% endfor %}
             </div>
             <div class="message-input">
-                <form method="post" class="message-input">
-                    {{ send_message.csrf_token }}
-                    {{ send_message.message.label }}
-                    {{ send_message.message() }}
-                    {{ send_message.submit() }}
+                <form class="message-input">
+                    <input id="message" type="text">
+                    <input id="msg-send-btn" type="submit">
                 </form>
             </div>
         </div>
