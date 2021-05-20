@@ -83,7 +83,8 @@ def handle_message(message):
     chat = Messages.query.filter_by(id=msg_id).first()
     chat_msg = json.loads(chat.messages)
 
-    chat_msg.append(msg_content)
+    chat_info = [msg_content, current_user.username]
+    chat_msg.append(chat_info)
     chat.messages = json.dumps(chat_msg)
 
     db.session.commit()
