@@ -153,7 +153,7 @@ def profile(username):
         '''
         for account in following:
             for follower in followers:
-                if account and follower == viewed_user.username:
+                if account == viewed_user.username and follower == viewed_user.username:
                     friends.append(viewed_user.username)
                     viewed_friends.append(current_user.username)
 
@@ -167,7 +167,7 @@ def profile(username):
     elif request.form.get('submit') == 'Following':
         for account in following:
             for follower in followers:
-                if account and follower == viewed_user.username:
+                if account == viewed_user.username and follower == viewed_user.username:
                     friends.remove(viewed_user.username)
                     viewed_friends.remove(current_user.username)
 
