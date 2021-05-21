@@ -18,7 +18,9 @@
             socket.on('message', function(message) {
                 // adds message to the correct div
                 var chatId = getChatMessage();
-                $('#' + chatId).append('<p style="text-align: right;">' + message + '</p>');
+                $('#' + chatId).append('<p style="text-align: right; font-size:11px;">' + message[1] + '</p>');
+                $('#' + chatId).append('<p style="text-align: right;">' + message[0] + '</p>');
+                scrollBottom();
             });
 
             $('.message-input').submit(function(event) {
@@ -78,8 +80,10 @@
                     {% endif %}
                     {% for message in json.loads(chat.messages) %}
                         {% if message[1] == user.username %}
+                            <p class="{{ 'c' + chat.id|string }}" style="text-align: right; font-size: 11px;">{{ message[1] }}</p>
                             <p class="{{ 'c' + chat.id|string }}" style="text-align: right;">{{ message[0] }}</p>
                         {% else %}
+                            <p class="{{ 'c' + chat.id|string }}" style="font-size: 11px;">{{ message[1] }}</p>
                             <p class="{{ 'c' + chat.id|string }}">{{ message[0] }}</p>
                         {% endif %}
                     {% endfor %}

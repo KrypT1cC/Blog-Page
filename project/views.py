@@ -88,7 +88,7 @@ def handle_message(message):
     chat.messages = json.dumps(chat_msg)
 
     db.session.commit()
-    send(msg_content)  # sends back to javascript to add on div
+    send(chat_info)  # sends back to javascript to add on div
 
 
 @app.route('/dm', methods=['GET', 'POST'])
