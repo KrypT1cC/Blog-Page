@@ -139,7 +139,7 @@ def profile(username):
     friends = json.loads(current_user.friends)
     viewed_user = Accounts.query.filter_by(username=username).first()
     viewed_followers = json.loads(viewed_user.followers)
-    viewed_frineds = json.loads(viewed_user.friends)
+    viewed_friends = json.loads(viewed_user.friends)
     follow_value = 'Follow'
 
     if request.form.get('logout') == 'Logout':
@@ -155,21 +155,21 @@ def profile(username):
             for follower in followers:
                 if account and follower == viewed_user.username:
                     friends.append(viewed_user.username)
-                    viewed_frineds.append(current_user.username)
+                    viewed_friends.append(current_user.username)
 
         # update following/followers
         current_user.following = json.dumps(following)
         viewed_user.followers = json.dumps(viewed_followers)
         # update friends
         current_user.friends = json.dumps(friends)
-        viewed_user.friends = json.dumps(viewed_frineds)
+        viewed_user.friends = json.dumps(viewed_friends)
         db.session.commit()
     elif request.form.get('submit') == 'Following':
         for account in following:
             for follower in followers:
                 if account and follower == viewed_user.username:
                     friends.remove(viewed_user.username)
-                    viewed_frineds.remove(current_user.username)
+                    viewed_friends.remove(current_user.username)
 
         viewed_followers.remove(current_user.username)
         following.remove(viewed_user.username)
@@ -177,7 +177,7 @@ def profile(username):
         current_user.following = json.dumps(following)
 
         current_user.friends = json.dumps(friends)
-        viewed_user.friends = json.dumps(viewed_frineds)
+        viewed_user.friends = json.dumps(viewed_friends)
         db.session.commit()
 
     for follow in following:
