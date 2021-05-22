@@ -14,4 +14,13 @@
             </form>
         </div>
     {% endblock %}
+
+    <div class="posts">
+        <button class="create-post">Create Post</button>
+        {% for post in posts %}
+            <div>
+                {{ post }}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

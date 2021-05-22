@@ -33,3 +33,12 @@ class Messages(db.Model, UserMixin):
     chat_name = db.Column(db.String(), unique=False, nullable=False)
     accounts = db.Column(db.String(), unique=True, nullable=False)
     messages = db.Column(db.String(), unique=False, nullable=True)
+
+
+class Posts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    creator = db.Column(db.String(), unique=False, nullable=False)
+    caption = db.Column(db.String(), unique=False, nullable=False)
+    likes = db.Column(db.Integer(), unique=False, nullable=False)
+    comments = db.Column(db.String(), unique=False, nullable=True)
+    image = db.Column(db.String(), unique=False, nullable=True)

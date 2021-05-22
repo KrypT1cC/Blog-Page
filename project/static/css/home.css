@@ -6,6 +6,7 @@
 .welcome {
     position: relative;
     top: 50px;
+    z-index: -1;
 }
 
 .nav-bar {
@@ -77,4 +78,9 @@ img {
     top: 10px;
     position: fixed;
     border-radius: 50%;
+}
+
+.posts {
+    width: 800px;
+    margin: auto;
 }
