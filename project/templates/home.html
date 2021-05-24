@@ -1,4 +1,22 @@
 {% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#create-post").click(function(){
+                $("#dimmer").css("display", "block");
+                $(".post-form").css("display", "block");
+            });
+
+            $("#cancel-post").click(function(){
+                $("#dimmer").css("display", "none");
+                $(".post-form").css("display", "none");
+            });
+        });
+    </script>
+{% endblock %}
 {% block content %}
     <div class="welcome">
         <h1>Hello {{ user.username }}! </h1>
@@ -16,11 +34,26 @@
     {% endblock %}
 
     <div class="posts">
-        <button class="create-post">Create Post</button>
+        <button id="create-post">Create Post</button>
         {% for post in posts %}
             <div>
                 {{ post }}
             </div>
         {% endfor %}
     </div>
+
+    <div class="post-form" style="position: relative; top: 100px;">
+        <form method="post">
+            {{ post_form.csrf_token }}
+            {{ post_form.caption.label }}
+            {{ post_form.caption(rows="10", cols="80") }}
+            {{ post_form.image.label }}
+            {{ post_form.image() }}
+            {{ post_form.submit() }}
+        </form>
+        <br/>
+        <button id="cancel-post">Cancel Post</button>
+    </div>
+
+    <div id="dimmer"></div>
 {% endblock %}

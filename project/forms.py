@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, ValidationError, FileField
+from wtforms import StringField, PasswordField, SubmitField, ValidationError, FileField, TextAreaField
 from flask_wtf.file import FileRequired, FileAllowed
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from project.models import Accounts
@@ -172,5 +172,19 @@ class CreateChat(FlaskForm):
                 raise ValidationError('Account does not exist: ' + account)
             if account not in json.loads(current_user.friends) and account != current_user.username:
                 raise ValidationError('Not friends with: ' + account)
+
+
+class CreatePost(FlaskForm):
+    caption = TextAreaField(
+        'Caption',
+    )
+
+    image = FileField(
+        'Image',
+        validators=[
+            FileAllowed(['jpg', 'png'], message='Only Image Files Allowed')
+        ]
+    )
+    submit = SubmitField('Create Post')
 
 

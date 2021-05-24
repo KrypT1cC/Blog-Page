@@ -1,6 +1,6 @@
 from project import app, db, bcrypt, login_manager, socketio
 from project.forms import LoginForm, RegisterForm, ChangeUsernameForm, ChangePasswordForm, ChangeEmailForm, \
-    ChangeProfilePictureForm, CreateChat
+    ChangeProfilePictureForm, CreateChat, CreatePost
 from project.models import Accounts, Messages, Posts
 from flask_login import login_required, login_user, current_user, logout_user
 from flask_socketio import send
@@ -17,12 +17,17 @@ def load_user(user_id):
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
+    post_form = CreatePost()
+
     if request.form.get('logout') == 'Logout':
         logout_user()
         return redirect(url_for('login'))
+    elif post_form.validate_on_submit():
+        # create a post
+        pass
 
     posts = Posts.query.all()
-    return render_template('home.html', user=current_user, posts=reversed(posts))
+    return render_template('home.html', user=current_user, posts=reversed(posts), post_form=post_form)
 
 
 @app.route('/', methods=['GET', 'POST'])
