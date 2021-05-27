@@ -43,7 +43,7 @@
     </div>
 
     <div class="post-form" style="position: relative; top: 100px;">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {{ post_form.csrf_token }}
             {{ post_form.caption.label }}
             {{ post_form.caption(rows="10", cols="80") }}
@@ -52,7 +52,24 @@
             {{ post_form.submit() }}
         </form>
         <br/>
-        <button id="cancel-post">Cancel Post</button>
+        <button id="cancel-post">Cancel</button>
+        <div class="post-errors">
+            {% if post_form.errors %}
+            <ul>
+            {% if post_form.caption.errors %}
+                {% for error in post_form.caption.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endif %}
+
+            {% if post_form.image.errors %}
+                {% for error in post_form.image.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endif %}
+            </ul>
+            {% endif %}
+        </div>
     </div>
 
     <div id="dimmer"></div>

@@ -182,9 +182,10 @@ class CreatePost(FlaskForm):
     image = FileField(
         'Image',
         validators=[
-            FileAllowed(['jpg', 'png'], message='Only Image Files Allowed')
+            FileRequired(message="No file attached"),
+            FileAllowed(['jpg', 'png'], message='Only .jpg and .png files are allowed')
         ]
     )
-    submit = SubmitField('Create Post')
+    submit = SubmitField('Post Online')
 
 

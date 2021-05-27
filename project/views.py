@@ -22,9 +22,10 @@ def home():
     if request.form.get('logout') == 'Logout':
         logout_user()
         return redirect(url_for('login'))
-    elif post_form.validate_on_submit():
-        # create a post
-        pass
+    elif request.form.get('submit') == 'Post Online':
+        if post_form.validate_on_submit():
+            # create a post
+            pass
 
     posts = Posts.query.all()
     return render_template('home.html', user=current_user, posts=reversed(posts), post_form=post_form)
