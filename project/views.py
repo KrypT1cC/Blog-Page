@@ -108,11 +108,12 @@ def dm():
             create_accounts = create_chat.accounts.data.split(', ')
             accounts = [current_user.username]
 
+            # add accounts to list (no duplicates)
             for account in create_accounts:
                 if account not in accounts:
                     accounts.append(account)
 
-            chat_name = "Chat: " + " ".join(str(x) for x in accounts)
+            chat_name = "Chat: " + " ".join(str(x) for x in accounts)  # add space between every name
             messages = []
 
             new_chat = Messages(accounts=json.dumps(accounts), chat_name=chat_name, messages=json.dumps(messages))
