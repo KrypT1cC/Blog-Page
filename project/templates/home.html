@@ -36,13 +36,17 @@
     <div class="posts">
         <button id="create-post">Create Post</button>
         {% for post in posts %}
-            <div>
-                {{ post }}
+            <div class="p{{ post.id }}">
+                <p>{{ post.creator }}</p>
+                <img src="{{ post.image }}" width="400" height="400">
+                <p>{{ post.caption }}</p>
+                <p>Likes : 0</p>
+                <br/>
             </div>
         {% endfor %}
     </div>
 
-    <div class="post-form" style="position: relative; top: 100px;">
+    <div class="post-form">
         <form method="post" enctype="multipart/form-data">
             {{ post_form.csrf_token }}
             {{ post_form.caption.label }}

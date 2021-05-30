@@ -65,7 +65,7 @@ form {
     position: fixed;
 }
 
-img {
+.nav-bar img {
     width: 40px;
     height: 40px;
     position: relative;

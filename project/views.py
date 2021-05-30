@@ -24,9 +24,21 @@ def home():
         return redirect(url_for('login'))
     elif request.form.get('submit') == 'Post Online':
         if post_form.validate_on_submit():
-            # create a post
-            pass
-
+            caption = post_form.caption.data
+            image = post_form.image.data
+            filename = secure_filename(image.filename)
+            print(filename)
+            print(os.environ.get('POST_IMG_PATH'))
+            image.save(os.environ.get('POST_IMG_PATH') + filename)
+            post = Posts(
+                creator=current_user.username,
+                caption=caption,
+                likes=0,
+                comments=json.dumps([]),
+                image='/static/img/post_imgs/' + filename
+            )
+            db.session.add(post)
+            db.session.commit()
     posts = Posts.query.all()
     return render_template('home.html', user=current_user, posts=reversed(posts), post_form=post_form)
 
