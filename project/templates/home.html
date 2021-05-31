@@ -41,6 +41,10 @@
                 <img src="{{ post.image }}" width="400" height="400">
                 <p>{{ post.caption }}</p>
                 <p>Likes : 0</p>
+                <form class="heart" method="post">
+                    <input id="h-left" type="submit" value="">
+                    <input id="h-right" type="submit" value="">
+                </form>
                 <br/>
             </div>
         {% endfor %}

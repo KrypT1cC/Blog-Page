@@ -27,13 +27,11 @@ def home():
             caption = post_form.caption.data
             image = post_form.image.data
             filename = secure_filename(image.filename)
-            print(filename)
-            print(os.environ.get('POST_IMG_PATH'))
             image.save(os.environ.get('POST_IMG_PATH') + filename)
             post = Posts(
                 creator=current_user.username,
                 caption=caption,
-                likes=0,
+                likes=json.dumps([]),
                 comments=json.dumps([]),
                 image='/static/img/post_imgs/' + filename
             )
