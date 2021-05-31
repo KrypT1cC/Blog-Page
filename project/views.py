@@ -22,6 +22,19 @@ def home():
     if request.form.get('logout') == 'Logout':
         logout_user()
         return redirect(url_for('login'))
+    elif request.form.get('form_id') is not None:
+        post_id = request.form.get('form_id')
+        post = Posts.query.filter_by(id=post_id).first()
+        post_likes = json.loads(post.likes)
+
+        # remove username if already liked otherwise add username
+        if current_user.username in post_likes:
+            post_likes.remove(current_user.username)
+        else:
+            post_likes.append(current_user.username)
+
+        post.id = json.dumps(post_likes)
+        db.session.commit()
     elif request.form.get('submit') == 'Post Online':
         if post_form.validate_on_submit():
             caption = post_form.caption.data
@@ -95,6 +108,8 @@ def forgot_password():
 @socketio.on('message')
 def handle_message(message):
     # processes data from javascript and append new message to database
+
+    # problem with nums > 9
     msg_content = message[0: -1]
     msg_id = int(message[-1])
     chat = Messages.query.filter_by(id=msg_id).first()

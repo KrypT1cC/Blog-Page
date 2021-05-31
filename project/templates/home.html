@@ -14,6 +14,16 @@
                 $("#dimmer").css("display", "none");
                 $(".post-form").css("display", "none");
             });
+
+            $('.heart').submit(function(event){
+                var id = $(this).attr('id').substring(5);
+                $.ajax({
+                  type: "POST",
+                  url: '/home',
+                  data: {form_id: id},
+                  dataType: "json"
+                });
+            });
         });
     </script>
 {% endblock %}
@@ -41,9 +51,9 @@
                 <img src="{{ post.image }}" width="400" height="400">
                 <p>{{ post.caption }}</p>
                 <p>Likes : 0</p>
-                <form class="heart" method="post">
-                    <input id="h-left" type="submit" value="">
-                    <input id="h-right" type="submit" value="">
+                <form class="heart" id=heart{{ post.id }} method="post">
+                    <input name='heart' id="h-left" type="submit" value="">
+                    <input name='heart' id="h-right" type="submit" value="">
                 </form>
                 <br/>
             </div>
