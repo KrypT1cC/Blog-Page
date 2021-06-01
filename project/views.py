@@ -28,12 +28,12 @@ def home():
         post_likes = json.loads(post.likes)
 
         # remove username if already liked otherwise add username
-        if current_user.username in post_likes:
+        if current_user.username in post_likes and current_user.username is not post.creator:
             post_likes.remove(current_user.username)
         else:
             post_likes.append(current_user.username)
 
-        post.id = json.dumps(post_likes)
+        post.likes = json.dumps(post_likes)
         db.session.commit()
     elif request.form.get('submit') == 'Post Online':
         if post_form.validate_on_submit():
@@ -51,7 +51,7 @@ def home():
             db.session.add(post)
             db.session.commit()
     posts = Posts.query.all()
-    return render_template('home.html', user=current_user, posts=reversed(posts), post_form=post_form)
+    return render_template('home.html', user=current_user, json=json, posts=reversed(posts), post_form=post_form)
 
 
 @app.route('/', methods=['GET', 'POST'])

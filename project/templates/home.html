@@ -23,6 +23,7 @@
                   data: {form_id: id},
                   dataType: "json"
                 });
+                event.reload()
             });
         });
     </script>
@@ -46,14 +47,27 @@
     <div class="posts">
         <button id="create-post">Create Post</button>
         {% for post in posts %}
+
+            {% set user_found = {'found': False} %}
+            {% for username in json.loads(post.likes) %}
+                {% if user.username == username %}
+                    {% if user_found.update({'found': True}) %}{% endif %}
+                {% endif %}
+            {% endfor %}
+
             <div class="p{{ post.id }}">
                 <p>{{ post.creator }}</p>
                 <img src="{{ post.image }}" width="400" height="400">
                 <p>{{ post.caption }}</p>
-                <p>Likes : 0</p>
-                <form class="heart" id=heart{{ post.id }} method="post">
-                    <input name='heart' id="h-left" type="submit" value="">
-                    <input name='heart' id="h-right" type="submit" value="">
+                <p>Likes : {{ json.loads(post.likes)|length }}</p>
+                <form class="heart" id="heart{{ post.id }}" method="post">
+                    {% if user_found.found == True %}
+                        <input name='heart' class="h-left" type="submit" value="" style="background-color: red;">
+                        <input name='heart' class="h-right" type="submit" value="" style="background-color: red;">
+                    {% else %}
+                        <input name='heart' class="h-left" type="submit" value="" style="background-color: gray;">
+                        <input name='heart' class="h-right" type="submit" value="" style="background-color: gray;">
+                    {% endif %}
                 </form>
                 <br/>
             </div>

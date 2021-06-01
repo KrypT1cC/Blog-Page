@@ -125,11 +125,10 @@ form {
     height: 25px;
 }
 
-.heart #h-left, .heart #h-right{
+.heart .h-left, .heart .h-right{
     border: 0;
     display: block;
     position: absolute;
-    background-color: gray;
     width: 20px;
     height: 13px;
     border-radius: 50px 0 0 50px;
@@ -137,7 +136,7 @@ form {
     z-index: 1;
 }
 
-.heart #h-right{
+.heart .h-right{
     transform: rotate(135deg);
     position: relative;
     left: 20%;
